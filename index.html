@@ -327,7 +327,7 @@
     .agent-performance-heading{display:block;margin-bottom:11px}
     .agent-performance-heading h2{margin:2px 0 0;font-size:20px;color:var(--ink)}
     .agent-performance-heading p{margin:5px 0 0;max-width:760px;color:var(--muted);font-size:10.5px;line-height:1.45}
-    .performance-summary-row{display:grid;grid-template-columns:82px minmax(500px,680px);justify-content:end;gap:12px;align-items:stretch;margin-bottom:14px;overflow-x:auto;padding-bottom:1px}
+    .performance-summary-row{display:grid;grid-template-columns:82px minmax(500px,680px);justify-content:center;gap:12px;align-items:stretch;margin-bottom:14px;overflow-x:auto;padding-bottom:1px}
     .performance-summary-card,.performance-goal-card{padding:0;overflow:hidden;margin:0}
     .performance-titlebar{padding:10px 13px;text-align:center;background:linear-gradient(90deg,var(--table-title-start),var(--table-title-end));color:var(--table-title-text);font-weight:900}
     .performance-titlebar small{display:block;margin-top:3px;font-size:9.5px;opacity:.9}
@@ -350,7 +350,7 @@
     .performance-consistent{background:color-mix(in srgb,var(--table-alt) 72%,var(--surface))!important}
     .performance-below{background:color-mix(in srgb,var(--red-bg) 68%,var(--surface))!important}
     @media(max-width:1050px){.performance-grid{grid-template-columns:1fr}}
-    @media(max-width:680px){.performance-summary-row{grid-template-columns:72px 540px;justify-content:start}}
+    @media(max-width:680px){.performance-summary-row{grid-template-columns:72px 540px;justify-content:center}}
 
 
     .hmg-upload-card{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:16px;align-items:center;padding:16px;margin-bottom:14px}
@@ -432,8 +432,8 @@
         <label class="label">Display
           <select class="control" id="rangePreset">
             <option value="5">5 business days</option>
-            <option value="7">7 business days</option>
-            <option value="10" selected>10 business days</option>
+            <option value="7" selected>7 business days</option>
+            <option value="10">10 business days</option>
             <option value="14">14 business days</option>
             <option value="20">20 business days</option>
             <option value="30">30 business days</option>
@@ -445,9 +445,6 @@
           </span>
         </label>
         <input id="toDate" type="hidden">
-      </div>
-      <div class="toolbar-right">
-        <div class="auto-row-note">The From date and business-day range apply to both PA PPQ and Appeals PPQ. Today’s rows are added automatically.</div>
       </div>
     </section>
 
@@ -516,12 +513,10 @@
             <input class="control" id="iphToDate" type="date" aria-label="IPH To date" readonly>
           </label>
         </div>
-        <div class="auto-row-note">Uploading the HMG Table automatically uses the most recent Saturday and updates every IPH and performance result.</div>
       </section>
 
       <section class="card hmg-upload-card" id="hmgDropZone">
         <div class="hmg-upload-copy">
-          <div class="eyebrow">WEEKLY UPDATE</div>
           <h2>Upload HMG Table</h2>
           <p>Upload the Tableau HMG_Table CSV. The dashboard calculates both overall IPHs, applies the 40% workflow-time rule, assigns all performance ratings, and saves the Saturday checkpoint.</p>
         </div>
@@ -569,9 +564,7 @@
       <section class="agent-performance-area">
         <div class="agent-performance-heading">
           <div>
-            <div class="eyebrow">SECOND SECTION</div>
             <h2>Agent Performance Ratings</h2>
-            <p>The four rating counts, headcount, and every percentage are calculated automatically from the uploaded HMG Table.</p>
           </div>
         </div>
 
@@ -1341,7 +1334,7 @@
     let customPreviewDirty = false;
     let records = loadRecords();
     let currentWorkflow = 'PA PPQ';
-    let currentRangePreset = '10';
+    let currentRangePreset = '7';
     let pendingImport = null;
     let editingKey = null;
     let meta = loadMeta();
@@ -2497,7 +2490,7 @@
     }
     async function handleFile(file){
       if(!file)return;try{$('dropZone').classList.add('drag');const result=await parseFile(file);pendingImport={...result,fileName:file.name};$('importFileName').textContent=file.name;$('importPaCount').textContent=nf0.format(result.records.filter(r=>r.workflow==='PA PPQ').length);$('importAppealsCount').textContent=nf0.format(result.records.filter(r=>r.workflow==='Appeals PPQ').length);$('importSkippedCount').textContent=nf0.format(result.skipped||0);$('importWarnings').classList.toggle('show',!!result.warnings?.length);$('importWarnings').textContent=(result.warnings||[]).join(' ');$('importPreview').classList.add('show');toast('Import preview is ready. Review it before applying.','success');}catch(err){toast(err.message||String(err),'error');}finally{$('dropZone').classList.remove('drag');$('fileInput').value='';}}
-    function applyImport(){if(!pendingImport)return;const mode=document.querySelector('input[name="importMode"]:checked')?.value||'merge';const importedWorkflows=[...new Set(pendingImport.records.map(r=>r.workflow))];if(mode==='replace')records=records.filter(r=>!importedWorkflows.includes(r.workflow));const map=new Map(records.map(r=>[r.workflow+'|'+r.snapshotDate,r]));pendingImport.records.forEach(r=>map.set(r.workflow+'|'+r.snapshotDate,{...r,modifiedAt:new Date().toISOString()}));records=[...map.values()];ensureTodayRows();meta.lastImport={fileName:pendingImport.fileName,when:new Date().toISOString(),count:pendingImport.records.length};saveAll(`${nf0.format(pendingImport.records.length)} rows were applied.`);pendingImport=null;$('importPreview').classList.remove('show');currentRangePreset='10';applyRangePreset('10',false);render();}
+    function applyImport(){if(!pendingImport)return;const mode=document.querySelector('input[name="importMode"]:checked')?.value||'merge';const importedWorkflows=[...new Set(pendingImport.records.map(r=>r.workflow))];if(mode==='replace')records=records.filter(r=>!importedWorkflows.includes(r.workflow));const map=new Map(records.map(r=>[r.workflow+'|'+r.snapshotDate,r]));pendingImport.records.forEach(r=>map.set(r.workflow+'|'+r.snapshotDate,{...r,modifiedAt:new Date().toISOString()}));records=[...map.values()];ensureTodayRows();meta.lastImport={fileName:pendingImport.fileName,when:new Date().toISOString(),count:pendingImport.records.length};saveAll(`${nf0.format(pendingImport.records.length)} rows were applied.`);pendingImport=null;$('importPreview').classList.remove('show');currentRangePreset='7';applyRangePreset('7',false);render();}
     function cancelImport(){pendingImport=null;$('importPreview').classList.remove('show');}
 
     function exportCsv(){
