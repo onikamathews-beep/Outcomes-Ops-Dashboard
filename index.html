@@ -208,6 +208,171 @@
       .theme-grid,.theme-fields,.theme-studio-actions,.custom-name-row{grid-template-columns:1fr}
     }
 
+
+    .dashboard-nav{display:flex;gap:8px;margin:0 0 14px;padding:5px;background:var(--surface);border:1px solid var(--border);border-radius:11px;box-shadow:var(--shadow);width:max-content;max-width:100%;overflow:auto}
+    .dashboard-nav button{border:0;background:transparent;color:var(--muted);font-weight:850;padding:10px 15px;border-radius:8px;white-space:nowrap;cursor:pointer}
+    .dashboard-nav button:hover{background:var(--canvas);color:var(--ink)}
+    .dashboard-nav button.active{background:var(--blue);color:var(--on-accent)}
+    .dashboard-page{display:none}
+    .dashboard-page.active{display:block}
+    .iph-toolbar{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow);padding:14px 16px;display:flex;align-items:flex-end;justify-content:space-between;gap:18px;margin-bottom:14px}
+    .iph-toolbar-left{display:flex;align-items:flex-end;gap:18px;flex-wrap:wrap}
+    .pw-pill{min-height:39px;display:flex;align-items:center;padding:0 14px;border:1px solid var(--border-strong);border-radius:8px;background:var(--blue-soft);color:var(--ink);font-weight:900}
+    .iph-top-grid{display:grid;grid-template-columns:minmax(0,1fr) 330px;gap:14px;align-items:start}
+    .iph-trend-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;min-width:0}
+    .iph-card{padding:0;overflow:hidden}
+    .iph-card-head{padding:14px 15px 7px;text-align:center}
+    .iph-card-head h2{font-size:16px;margin:0;color:var(--ink)}
+    .iph-chart{min-height:255px;padding:0 8px}
+    .iph-table-wrap,.performance-table-wrap,.cohort-table-wrap{overflow:auto}
+    .iph-table,.performance-table,.summary-table,.cohort-table{border-collapse:separate;border-spacing:0;width:100%;font-size:11px;color:var(--ink)}
+    .iph-table th,.performance-table th,.summary-table th,.cohort-table th{padding:7px 8px;border-right:1px solid var(--border);border-bottom:1px solid var(--border);background:var(--table-header);color:var(--table-header-text);text-align:center;white-space:nowrap}
+    .iph-table td,.performance-table td,.summary-table td,.cohort-table td{padding:7px 8px;border-right:1px solid var(--border);border-bottom:1px solid var(--border);text-align:right;white-space:nowrap;font-variant-numeric:tabular-nums}
+    .iph-table td:first-child,.performance-table td:first-child{text-align:left}
+    .iph-table tbody tr:nth-child(even) td,.performance-table tbody tr:nth-child(even) td,.cohort-table tbody tr:nth-child(even) td{background:var(--table-alt)}
+    .goal-good{background:var(--green-bg)!important;color:var(--green)!important;font-weight:850}
+    .goal-bad{background:var(--red-bg)!important;color:var(--red)!important;font-weight:850}
+    .goal-watch{background:var(--yellow-bg)!important;color:var(--yellow)!important;font-weight:850}
+    .iph-side-stack{display:grid;gap:14px}
+    .blue-titlebar{background:linear-gradient(90deg,var(--table-title-start),var(--table-title-end));color:var(--table-title-text);padding:10px 12px;text-align:center;font-weight:900}
+    .blue-titlebar small{display:block;font-size:10px;margin-top:3px;opacity:.9}
+    .summary-table th{background:var(--blue-soft);color:var(--ink);font-weight:900}
+    .summary-table td:first-child,.summary-table td:nth-child(3){font-weight:900}
+    .summary-table .summary-label{text-align:left;color:var(--ink);font-weight:800}
+    .expected-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:7px;padding:12px}
+    .expected-box{border:1px solid var(--border);border-radius:8px;padding:9px 5px;text-align:center;background:var(--canvas)}
+    .expected-box b{display:block;font-size:15px;color:var(--blue)}
+    .expected-box span{display:block;font-size:9px;color:var(--muted);margin-top:3px;line-height:1.2}
+    .rating-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:14px}
+    .performance-table{min-width:960px}
+    .performance-table .expected-row th{background:var(--blue-soft);color:var(--ink);font-size:10px}
+    .performance-table td.rate-band{background:color-mix(in srgb,var(--table-title-end) 14%,var(--surface))}
+    .performance-table td.count-cell{font-weight:850}
+    .performance-table .latest-row td{box-shadow:inset 0 -2px 0 var(--blue)}
+    .cohort-card{margin-top:14px;padding:0;overflow:hidden}
+    .cohort-table{min-width:820px}
+    .cohort-table th{background:var(--blue-soft);color:var(--ink)}
+    .cohort-table .cohort-name{background:var(--table-header);color:var(--table-header-text);font-weight:900}
+    .cohort-table td{text-align:center}
+    .section-note{font-size:10px;color:var(--muted);line-height:1.45;padding:9px 12px;border-top:1px solid var(--border);background:var(--canvas)}
+    @media(max-width:1150px){.iph-top-grid{grid-template-columns:1fr}.iph-side-stack{grid-template-columns:1fr 1fr}}
+    @media(max-width:850px){.iph-trend-grid,.rating-grid{grid-template-columns:1fr}.iph-side-stack{grid-template-columns:1fr}.iph-toolbar{flex-direction:column;align-items:stretch}.iph-toolbar-left{display:grid;grid-template-columns:1fr 1fr}.pw-pill{grid-column:1/-1}}
+    @media(max-width:600px){.dashboard-nav{width:100%}.dashboard-nav button{flex:1}.iph-toolbar-left{grid-template-columns:1fr}.pw-pill{grid-column:auto}.iph-chart{min-height:225px}}
+
+
+    .iph-workflow-grid{display:grid;grid-template-columns:minmax(0,1fr) 330px;gap:14px;align-items:start}
+    .iph-entry-card{padding:0;overflow:hidden}
+    .iph-step-strip{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;padding:13px 14px;background:var(--canvas);border-bottom:1px solid var(--border)}
+    .iph-step{display:flex;align-items:center;gap:8px;min-width:0;padding:8px;border:1px solid var(--border);border-radius:8px;background:var(--surface)}
+    .iph-step b{display:grid;place-items:center;width:23px;height:23px;flex:0 0 auto;border-radius:50%;background:var(--blue);color:var(--on-accent);font-size:11px}
+    .iph-step span{font-size:10px;font-weight:800;color:var(--ink);line-height:1.25}
+    .iph-entry-grid{display:grid;grid-template-columns:1fr 1fr;gap:13px;padding:14px}
+    .iph-queue-entry{border:1px solid var(--border);border-radius:10px;overflow:hidden;background:var(--surface)}
+    .iph-queue-title{padding:9px 12px;background:var(--table-header);color:var(--table-header-text);font-weight:900;text-align:center}
+    .iph-input-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:12px}
+    .iph-live-summary{display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid var(--border);background:var(--canvas)}
+    .iph-live-stat{padding:9px 6px;text-align:center;border-right:1px solid var(--border)}
+    .iph-live-stat:last-child{border-right:0}
+    .iph-live-stat b{display:block;font-size:13px;color:var(--ink)}
+    .iph-live-stat span{display:block;margin-top:3px;font-size:8.5px;color:var(--muted);line-height:1.2}
+    .iph-review-grid{display:grid;grid-template-columns:1fr 1fr;gap:13px;padding:0 14px 14px}
+    .iph-checklist-panel,.iph-internal-review{border:1px solid var(--border);border-radius:10px;padding:12px;background:var(--canvas)}
+    .iph-checklist-panel h3,.iph-internal-review h3{font-size:13px;margin:0 0 9px;color:var(--ink)}
+    .iph-check-row{display:flex;gap:9px;align-items:flex-start;padding:8px 0;border-bottom:1px solid var(--border);font-size:10px;line-height:1.4;color:var(--ink);cursor:pointer}
+    .iph-check-row:last-of-type{border-bottom:0}
+    .iph-check-row input{margin-top:2px}
+    .iph-help-note{margin-top:9px;padding:9px;border-radius:7px;background:var(--blue-soft);color:var(--muted);font-size:9.5px;line-height:1.45}
+    .iph-change-comparison{margin-bottom:8px;padding:8px 9px;border:1px solid var(--border);border-radius:8px;background:var(--surface);font-size:10px;line-height:1.4;color:var(--ink)}
+    .iph-change-comparison b{color:var(--blue)}
+    .iph-internal-review .field{margin-top:9px}
+    .iph-internal-review textarea{resize:vertical;min-height:68px}
+    .iph-entry-actions{display:flex;justify-content:space-between;gap:10px;align-items:center;padding:12px 14px;border-top:1px solid var(--border);background:var(--canvas)}
+    .iph-entry-actions-right{display:flex;gap:8px}
+    .iph-trends-below{margin-top:14px}
+    .iph-history-table{min-width:930px}
+    .iph-history-table td{text-align:center}
+    .iph-history-table td:nth-child(2){text-align:left}
+    .iph-history-table .history-rating{font-weight:850}
+    .iph-edit-checkpoint{width:28px;height:28px;border:1px solid var(--border-strong);border-radius:7px;background:var(--surface);color:var(--blue);font-weight:900;cursor:pointer}
+    .iph-edit-checkpoint:hover{background:var(--blue-soft)}
+    .iph-review-yes{border-color:var(--yellow);background:var(--yellow-bg)}
+    .iph-review-complete{border-color:var(--green);background:var(--green-bg)}
+    #iphFromDate[readonly]{background:var(--canvas);color:var(--muted)}
+    @media(max-width:1150px){.iph-workflow-grid{grid-template-columns:1fr}.iph-side-stack{grid-template-columns:1fr 1fr}}
+    @media(max-width:850px){.iph-entry-grid,.iph-review-grid,.iph-trend-grid,.rating-grid{grid-template-columns:1fr}.iph-step-strip{grid-template-columns:1fr 1fr}.iph-side-stack{grid-template-columns:1fr}}
+    @media(max-width:600px){.iph-step-strip,.iph-input-grid{grid-template-columns:1fr}.iph-live-summary{grid-template-columns:1fr 1fr}.iph-entry-actions{align-items:stretch;flex-direction:column-reverse}.iph-entry-actions-right{display:grid;grid-template-columns:1fr 1fr;width:100%}.iph-entry-actions>.btn{width:100%}}
+
+
+    .iph-first-section-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;align-items:start}
+    .iph-section-card{padding:0;overflow:hidden}
+    .iph-section-title{padding:11px 14px;text-align:center;background:linear-gradient(90deg,var(--table-title-start),var(--table-title-end));color:var(--table-title-text);font-weight:900}
+    .iph-checkpoint-caption{padding:0 12px 10px;text-align:center;color:var(--muted);font-size:10px}
+    .iph-simple-table-wrap{overflow:auto;border-top:1px solid var(--border)}
+    .iph-simple-table{width:100%;border-collapse:separate;border-spacing:0;font-size:11px;color:var(--ink)}
+    .iph-simple-table th{padding:8px;background:var(--table-header);color:var(--table-header-text);border-right:1px solid var(--border);border-bottom:1px solid var(--border);text-align:center;white-space:nowrap}
+    .iph-simple-table td{padding:8px;border-right:1px solid var(--border);border-bottom:1px solid var(--border);text-align:center;white-space:nowrap;font-variant-numeric:tabular-nums}
+    .iph-simple-table tbody tr:nth-child(even) td{background:var(--table-alt)}
+    .iph-simple-table .iph-selected-row td{background:var(--blue-soft)}
+    .iph-simple-table input{width:88px;max-width:100%;border:1px solid var(--border-strong);border-radius:7px;background:var(--surface);color:var(--ink);padding:7px 8px;text-align:right;font:inherit;font-weight:800}
+    .iph-simple-table input:focus{outline:0;box-shadow:var(--focus);border-color:var(--blue)}
+    .iph-goal-below{background:var(--red-bg)!important;color:var(--red)!important;font-weight:900}
+    .iph-goal-consistent{background:color-mix(in srgb,var(--muted) 18%,var(--surface))!important;color:var(--ink)!important;font-weight:900}
+    .iph-goal-above{background:var(--green-bg)!important;color:var(--green)!important;font-weight:900}
+    .iph-chart{min-height:260px;padding:8px 8px 0}
+    @media(max-width:900px){.iph-first-section-grid{grid-template-columns:1fr}}
+    @media(max-width:600px){.iph-simple-table input{width:76px}}
+
+
+    .agent-performance-area{margin-top:20px}
+    .agent-performance-heading{display:block;margin-bottom:11px}
+    .agent-performance-heading h2{margin:2px 0 0;font-size:20px;color:var(--ink)}
+    .agent-performance-heading p{margin:5px 0 0;max-width:760px;color:var(--muted);font-size:10.5px;line-height:1.45}
+    .performance-summary-row{display:grid;grid-template-columns:82px minmax(500px,680px);justify-content:end;gap:12px;align-items:stretch;margin-bottom:14px;overflow-x:auto;padding-bottom:1px}
+    .performance-summary-card,.performance-goal-card{padding:0;overflow:hidden;margin:0}
+    .performance-titlebar{padding:10px 13px;text-align:center;background:linear-gradient(90deg,var(--table-title-start),var(--table-title-end));color:var(--table-title-text);font-weight:900}
+    .performance-titlebar small{display:block;margin-top:3px;font-size:9.5px;opacity:.9}
+    .performance-goal-title{padding-left:5px;padding-right:5px}
+    .performance-summary-wrap,.performance-table-wrap{overflow:auto}
+    .performance-summary-table,.performance-goal-table,.performance-table{width:100%;border-collapse:separate;border-spacing:0;color:var(--ink);font-size:10.5px}
+    .performance-summary-table th,.performance-goal-table th,.performance-table th{padding:7px 8px;border-right:1px solid var(--border);border-bottom:1px solid var(--border);background:var(--table-header);color:var(--table-header-text);text-align:center;white-space:nowrap}
+    .performance-summary-table td,.performance-goal-table td,.performance-table td{padding:7px 8px;border-right:1px solid var(--border);border-bottom:1px solid var(--border);text-align:center;white-space:nowrap;font-variant-numeric:tabular-nums}
+    .performance-summary-table tbody tr:nth-child(even) td,.performance-goal-table tbody tr:nth-child(even) td,.performance-table tbody tr:nth-child(even) td{background:var(--table-alt)}
+    .performance-summary-table td:first-child{text-align:left;font-weight:850}
+    .performance-goal-table td{font-weight:900;color:var(--blue)}
+    .performance-goal-table tbody tr:first-child td{color:var(--muted)}
+    .performance-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;align-items:start}
+    .performance-card{padding:0;overflow:hidden}
+    .performance-table{min-width:1040px}
+    .performance-target-row th{background:var(--blue-soft);color:var(--ink);font-size:10px}
+    .performance-selected-row td{background:var(--blue-soft)}
+    .performance-calculated{font-weight:850}
+    .performance-above{background:color-mix(in srgb,var(--green-bg) 68%,var(--surface))!important}
+    .performance-consistent{background:color-mix(in srgb,var(--table-alt) 72%,var(--surface))!important}
+    .performance-below{background:color-mix(in srgb,var(--red-bg) 68%,var(--surface))!important}
+    @media(max-width:1050px){.performance-grid{grid-template-columns:1fr}}
+    @media(max-width:680px){.performance-summary-row{grid-template-columns:72px 540px;justify-content:start}}
+
+
+    .hmg-upload-card{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:16px;align-items:center;padding:16px;margin-bottom:14px}
+    .hmg-upload-card.drag{border-color:var(--blue);box-shadow:var(--focus);background:var(--blue-soft)}
+    .hmg-upload-copy h2{margin:2px 0 0;font-size:18px;color:var(--ink)}
+    .hmg-upload-copy p{margin:6px 0 0;max-width:800px;color:var(--muted);font-size:10.5px;line-height:1.5}
+    .hmg-upload-action{display:flex;align-items:center;gap:9px;white-space:nowrap}
+    .hmg-upload-action span{color:var(--muted);font-size:9.5px}
+    .hmg-upload-status{grid-column:1/-1;display:flex;align-items:center;gap:10px;padding:10px 12px;border:1px solid var(--border);border-radius:9px;background:var(--canvas)}
+    .hmg-upload-status strong{color:var(--ink);font-size:10.5px}
+    .hmg-upload-status span{color:var(--muted);font-size:10px}
+    .hmg-upload-status.success{border-color:var(--green);background:var(--green-bg)}
+    .hmg-upload-status.error{border-color:var(--red);background:var(--red-bg)}
+    .hmg-upload-status.busy{border-color:var(--blue);background:var(--blue-soft)}
+    .iph-simple-table .calculated-iph{font-weight:900;color:var(--ink)}
+    @media(max-width:760px){
+      .hmg-upload-card{grid-template-columns:1fr}
+      .hmg-upload-action{align-items:stretch;flex-direction:column}
+      .hmg-upload-action .btn{width:100%}
+      .hmg-upload-status{align-items:flex-start;flex-direction:column}
+    }
+
     .settings-backdrop{position:fixed;inset:0;background:rgba(4,20,36,.54);z-index:90;display:none;justify-content:flex-end}
     .settings-backdrop.show{display:flex}
     .settings-panel{width:min(680px,96vw);height:100%;background:#fff;display:flex;flex-direction:column;box-shadow:-12px 0 28px rgba(0,0,0,.22);overflow:hidden}
@@ -250,6 +415,12 @@
   <div class="toast-stack" id="toastStack" aria-live="polite"></div>
 
   <main class="page">
+    <nav class="dashboard-nav" aria-label="Dashboard sections">
+      <button class="active" type="button" data-dashboard-page="queue">Queue Depth &amp; Headcount</button>
+      <button type="button" data-dashboard-page="iph">IPH Trends &amp; Performance</button>
+    </nav>
+
+    <section class="dashboard-page active" id="queueDashboardPage">
     <section class="toolbar" aria-label="Dashboard filters and actions">
       <div class="toolbar-left">
         <label class="label">Workflow
@@ -331,6 +502,192 @@
       <section class="card tablecard">
         <div class="table-titlebar"><span id="tableTitle">PA PPQ</span></div>
         <div class="table-wrap"><table class="data-table" id="dataTable"><thead id="tableHead"></thead><tbody id="tableBody"></tbody></table></div>
+      </section>
+    </section>
+    </section>
+
+    <section class="dashboard-page" id="iphDashboardPage">
+      <section class="iph-toolbar" aria-label="IPH checkpoint dates">
+        <div class="iph-toolbar-left">
+          <label class="label">From
+            <input class="control" id="iphFromDate" type="date" aria-label="IPH From date" readonly>
+          </label>
+          <label class="label">To
+            <input class="control" id="iphToDate" type="date" aria-label="IPH To date" readonly>
+          </label>
+        </div>
+        <div class="auto-row-note">Uploading the HMG Table automatically uses the most recent Saturday and updates every IPH and performance result.</div>
+      </section>
+
+      <section class="card hmg-upload-card" id="hmgDropZone">
+        <div class="hmg-upload-copy">
+          <div class="eyebrow">WEEKLY UPDATE</div>
+          <h2>Upload HMG Table</h2>
+          <p>Upload the Tableau HMG_Table CSV. The dashboard calculates both overall IPHs, applies the 40% workflow-time rule, assigns all performance ratings, and saves the Saturday checkpoint.</p>
+        </div>
+        <div class="hmg-upload-action">
+          <input id="hmgFileInput" type="file" accept=".csv,.txt,text/csv,text/plain" hidden>
+          <button class="btn btn-primary" id="hmgBrowseBtn" type="button">Choose HMG Table</button>
+          <span>or drop the file here</span>
+        </div>
+        <div class="hmg-upload-status" id="hmgUploadStatus" aria-live="polite">
+          <strong>Ready for this week’s HMG Table</strong>
+          <span>The checkpoint date will be selected automatically.</span>
+        </div>
+      </section>
+
+      <section class="iph-first-section-grid">
+        <article class="card iph-section-card">
+          <div class="iph-section-title">Appeals PPQ Interactions Per Hour</div>
+          <div class="iph-chart" id="appealsIphChart"></div>
+          <div class="iph-checkpoint-caption" id="appealsIphCountText">Selected checkpoint plus previous four</div>
+          <div class="iph-simple-table-wrap">
+            <table class="iph-simple-table">
+              <thead>
+                <tr><th>Date</th><th>% to Goal</th><th>IPH</th><th>Goal</th></tr>
+              </thead>
+              <tbody id="appealsIphTableBody"></tbody>
+            </table>
+          </div>
+        </article>
+
+        <article class="card iph-section-card">
+          <div class="iph-section-title">PA PPQ Interactions Per Hour</div>
+          <div class="iph-chart" id="paIphChart"></div>
+          <div class="iph-checkpoint-caption" id="paIphCountText">Selected checkpoint plus previous four</div>
+          <div class="iph-simple-table-wrap">
+            <table class="iph-simple-table">
+              <thead>
+                <tr><th>Date</th><th>% to Goal</th><th>IPH</th><th>Goal</th></tr>
+              </thead>
+              <tbody id="paIphTableBody"></tbody>
+            </table>
+          </div>
+        </article>
+      </section>
+
+      <section class="agent-performance-area">
+        <div class="agent-performance-heading">
+          <div>
+            <div class="eyebrow">SECOND SECTION</div>
+            <h2>Agent Performance Ratings</h2>
+            <p>The four rating counts, headcount, and every percentage are calculated automatically from the uploaded HMG Table.</p>
+          </div>
+        </div>
+
+        <section class="performance-summary-row" aria-label="Agent performance summary and goals">
+          <aside class="card performance-goal-card">
+            <div class="performance-titlebar performance-goal-title">
+              Goal
+              <small>&nbsp;</small>
+            </div>
+            <div class="performance-summary-wrap">
+              <table class="performance-goal-table" aria-label="Agent performance goals">
+                <thead><tr><th>Goal</th></tr></thead>
+                <tbody>
+                  <tr><td>—</td></tr>
+                  <tr><td>95%</td></tr>
+                  <tr><td>5%</td></tr>
+                  <tr><td>5%</td></tr>
+                  <tr><td>25%</td></tr>
+                  <tr><td>65%</td></tr>
+                  <tr><td>5%</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </aside>
+
+          <section class="card performance-summary-card">
+            <div class="performance-titlebar">
+              Agent Performance Ratings
+              <small id="performanceSummaryDate">Selected checkpoint</small>
+            </div>
+            <div class="performance-summary-wrap">
+              <table class="performance-summary-table">
+                <thead>
+                  <tr>
+                    <th>Measure</th>
+                    <th>Appeals PPQ</th>
+                    <th>PA PPQ</th>
+                  </tr>
+                </thead>
+                <tbody id="performanceSummaryBody"></tbody>
+              </table>
+            </div>
+          </section>
+        </section>
+
+        <section class="performance-grid">
+          <article class="card performance-card">
+            <div class="performance-titlebar">Appeals PPQ Agent Performance Ratings</div>
+            <div class="performance-table-wrap">
+              <table class="performance-table">
+                <thead>
+                  <tr class="performance-target-row">
+                    <th rowspan="2">Date</th>
+                    <th rowspan="2">HC</th>
+                    <th>30%</th>
+                    <th>65%</th>
+                    <th>5%</th>
+                    <th colspan="2">5%</th>
+                    <th colspan="2">25%</th>
+                    <th colspan="2">65%</th>
+                    <th colspan="2">5%</th>
+                  </tr>
+                  <tr>
+                    <th>Above</th>
+                    <th>Consistent</th>
+                    <th>Below</th>
+                    <th>Outstanding</th>
+                    <th>%</th>
+                    <th>Strong</th>
+                    <th>%</th>
+                    <th>Consistent</th>
+                    <th>%</th>
+                    <th>Not Meeting</th>
+                    <th>%</th>
+                  </tr>
+                </thead>
+                <tbody id="appealsPerformanceBody"></tbody>
+              </table>
+            </div>
+          </article>
+
+          <article class="card performance-card">
+            <div class="performance-titlebar">PA PPQ Agent Performance Ratings</div>
+            <div class="performance-table-wrap">
+              <table class="performance-table">
+                <thead>
+                  <tr class="performance-target-row">
+                    <th rowspan="2">Date</th>
+                    <th rowspan="2">HC</th>
+                    <th>30%</th>
+                    <th>65%</th>
+                    <th>5%</th>
+                    <th colspan="2">5%</th>
+                    <th colspan="2">25%</th>
+                    <th colspan="2">65%</th>
+                    <th colspan="2">5%</th>
+                  </tr>
+                  <tr>
+                    <th>Above</th>
+                    <th>Consistent</th>
+                    <th>Below</th>
+                    <th>Outstanding</th>
+                    <th>%</th>
+                    <th>Strong</th>
+                    <th>%</th>
+                    <th>Consistent</th>
+                    <th>%</th>
+                    <th>Not Meeting</th>
+                    <th>%</th>
+                  </tr>
+                </thead>
+                <tbody id="paPerformanceBody"></tbody>
+              </table>
+            </div>
+          </article>
+        </section>
       </section>
     </section>
   </main>
@@ -443,7 +800,7 @@
         <section class="settings-section">
           <div class="settings-section-head">
             <h3>Data Import</h3>
-            <p>Import PA PPQ and Appeals PPQ records from the approved Excel workbook or a CSV file.</p>
+            <p>Import Queue Depth and Headcount records here. Use the IPH Trends & Performance page for the weekly HMG Table upload.</p>
           </div>
           <label class="import-zone" id="dropZone">
             <input id="fileInput" type="file" accept=".xlsx,.csv,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,text/csv">
@@ -476,7 +833,7 @@
             <p>Download dashboard information or create a complete backup of the approval-stage browser data.</p>
           </div>
           <div class="settings-actions">
-            <button class="btn btn-secondary full" id="exportCsvBtn" type="button">Export selected snapshot range to CSV</button>
+            <button class="btn btn-secondary full" id="exportCsvBtn" type="button">Export current dashboard section to CSV</button>
             <button class="btn btn-secondary" id="downloadBackupBtn" type="button">Download browser backup</button>
             <button class="btn btn-secondary" id="restoreBackupBtn" type="button">Restore browser backup</button>
           </div>
@@ -928,6 +1285,57 @@
       {workflow:'Appeals PPQ',snapshotDate:'2026-07-22',queueDepth:null,enterCount:null,exitCount:null,ageOfQueue:6.4,kpi4QD:null,kpi4AoQ:1,primaryHC:40,supportOne:20,supportOneTime:.3,supportTwo:0,supportTwoTime:0,flexTeam:0}
     ];
 
+
+    const IPH_TREND_KEY='pinapple.dashboard.iphTrendData';
+    const IPH_PERFORMANCE_KEY='pinapple.dashboard.iphPerformanceData';
+    const IPH_REVIEW_KEY='pinapple.dashboard.iphReviewData';
+    const IPH_WEEK_STATE_KEY='pinapple.dashboard.iphWeekState';
+    const HMG_RAW_KEY='pinapple.dashboard.hmgRawData';
+
+    const sampleIphTrendData = [
+      {workflow:'Appeals PPQ',date:'2026-06-06',iph:13.37,goal:11},{workflow:'Appeals PPQ',date:'2026-06-13',iph:14.38,goal:11},{workflow:'Appeals PPQ',date:'2026-06-20',iph:16.02,goal:11},{workflow:'Appeals PPQ',date:'2026-06-27',iph:11.70,goal:11},{workflow:'Appeals PPQ',date:'2026-07-04',iph:11.65,goal:11},{workflow:'Appeals PPQ',date:'2026-07-11',iph:12.24,goal:11},{workflow:'Appeals PPQ',date:'2026-07-18',iph:10.95,goal:11},
+      {workflow:'PA PPQ',date:'2026-06-06',iph:18.01,goal:16},{workflow:'PA PPQ',date:'2026-06-13',iph:21.50,goal:16},{workflow:'PA PPQ',date:'2026-06-20',iph:13.13,goal:16},{workflow:'PA PPQ',date:'2026-06-27',iph:16.93,goal:16},{workflow:'PA PPQ',date:'2026-07-04',iph:18.61,goal:16},{workflow:'PA PPQ',date:'2026-07-11',iph:17.90,goal:16},{workflow:'PA PPQ',date:'2026-07-18',iph:18.94,goal:16}
+    ];
+    const samplePerformanceData = [
+      {workflow:'Appeals PPQ',date:'2026-06-06',hc:62,above:.290,bandConsistent:.323,below:.387,oCount:9,oPct:.145,sCount:9,sPct:.145,cCount:20,cPct:.323,nCount:24,nPct:.387},{workflow:'Appeals PPQ',date:'2026-06-13',hc:58,above:.276,bandConsistent:.328,below:.397,oCount:5,oPct:.086,sCount:11,sPct:.190,cCount:19,cPct:.328,nCount:23,nPct:.397},{workflow:'Appeals PPQ',date:'2026-06-20',hc:67,above:.299,bandConsistent:.403,below:.299,oCount:7,oPct:.104,sCount:13,sPct:.194,cCount:27,cPct:.403,nCount:20,nPct:.299},{workflow:'Appeals PPQ',date:'2026-06-27',hc:56,above:.268,bandConsistent:.375,below:.357,oCount:6,oPct:.107,sCount:9,sPct:.161,cCount:21,cPct:.375,nCount:20,nPct:.357},{workflow:'Appeals PPQ',date:'2026-07-04',hc:42,above:.214,bandConsistent:.476,below:.310,oCount:6,oPct:.143,sCount:3,sPct:.071,cCount:20,cPct:.476,nCount:13,nPct:.310},{workflow:'Appeals PPQ',date:'2026-07-11',hc:42,above:.238,bandConsistent:.381,below:.381,oCount:5,oPct:.119,sCount:5,sPct:.119,cCount:16,cPct:.381,nCount:16,nPct:.381},{workflow:'Appeals PPQ',date:'2026-07-18',hc:38,above:.184,bandConsistent:.421,below:.395,oCount:4,oPct:.105,sCount:3,sPct:.079,cCount:16,cPct:.421,nCount:15,nPct:.395},
+      {workflow:'PA PPQ',date:'2026-06-06',hc:180,above:.178,bandConsistent:.417,below:.406,oCount:11,oPct:.061,sCount:21,sPct:.117,cCount:75,cPct:.417,nCount:73,nPct:.406},{workflow:'PA PPQ',date:'2026-06-13',hc:191,above:.220,bandConsistent:.398,below:.382,oCount:10,oPct:.052,sCount:32,sPct:.168,cCount:76,cPct:.398,nCount:73,nPct:.382},{workflow:'PA PPQ',date:'2026-06-20',hc:174,above:.224,bandConsistent:.420,below:.356,oCount:7,oPct:.040,sCount:32,sPct:.184,cCount:73,cPct:.420,nCount:62,nPct:.356},{workflow:'PA PPQ',date:'2026-06-27',hc:177,above:.198,bandConsistent:.458,below:.345,oCount:8,oPct:.045,sCount:27,sPct:.153,cCount:81,cPct:.458,nCount:61,nPct:.345},{workflow:'PA PPQ',date:'2026-07-04',hc:169,above:.207,bandConsistent:.444,below:.349,oCount:11,oPct:.065,sCount:24,sPct:.142,cCount:75,cPct:.444,nCount:59,nPct:.349},{workflow:'PA PPQ',date:'2026-07-11',hc:144,above:.215,bandConsistent:.368,below:.417,oCount:7,oPct:.049,sCount:24,sPct:.167,cCount:53,cPct:.368,nCount:60,nPct:.417},{workflow:'PA PPQ',date:'2026-07-18',hc:165,above:.145,bandConsistent:.418,below:.436,oCount:6,oPct:.036,sCount:18,sPct:.109,cCount:69,cPct:.418,nCount:72,nPct:.436}
+    ];
+    const sampleIphReviewData = {};
+
+    function loadIphTrendData(){
+      try{const saved=JSON.parse(localStorage.getItem(IPH_TREND_KEY));if(Array.isArray(saved)&&saved.length)return saved;}catch(error){}
+      return structuredClone(sampleIphTrendData);
+    }
+    function loadIphPerformanceData(){
+      try{const saved=JSON.parse(localStorage.getItem(IPH_PERFORMANCE_KEY));if(Array.isArray(saved)&&saved.length)return saved;}catch(error){}
+      return structuredClone(samplePerformanceData);
+    }
+    function loadIphReviewData(){
+      try{const saved=JSON.parse(localStorage.getItem(IPH_REVIEW_KEY));if(saved&&typeof saved==='object')return saved;}catch(error){}
+      return structuredClone(sampleIphReviewData);
+    }
+    function loadIphWeekState(){
+      try{
+        const saved=JSON.parse(localStorage.getItem(IPH_WEEK_STATE_KEY));
+        if(saved&&typeof saved==='object')return saved;
+      }catch(error){}
+      return {};
+    }
+    function loadHmgRawData(){
+      try{
+        const saved=JSON.parse(localStorage.getItem(HMG_RAW_KEY));
+        if(saved&&typeof saved==='object')return saved;
+      }catch(error){}
+      return {};
+    }
+
+    let iphTrendData=loadIphTrendData();
+    let performanceData=loadIphPerformanceData();
+    let iphReviewData=loadIphReviewData();
+    let iphWeekState=loadIphWeekState();
+    let hmgRawData=loadHmgRawData();
+
+    let activeDashboardPage='queue';
     let appearanceState = loadAppearance();
     let customPreviewActive = false;
     let customPreviewDirty = false;
@@ -961,6 +1369,11 @@
       if(!added) return false;
       records.sort((a,b)=>a.workflow.localeCompare(b.workflow)||a.snapshotDate.localeCompare(b.snapshotDate));
       localStorage.setItem(STORE_KEY,JSON.stringify(records));
+      localStorage.setItem(IPH_TREND_KEY,JSON.stringify(iphTrendData));
+      localStorage.setItem(IPH_PERFORMANCE_KEY,JSON.stringify(performanceData));
+      localStorage.setItem(IPH_REVIEW_KEY,JSON.stringify(iphReviewData));
+      localStorage.setItem(IPH_WEEK_STATE_KEY,JSON.stringify(iphWeekState));
+      localStorage.setItem(HMG_RAW_KEY,JSON.stringify(hmgRawData));
       meta.lastSaved=new Date().toISOString();
       localStorage.setItem(META_KEY,JSON.stringify(meta));
       return true;
@@ -973,11 +1386,15 @@
     function loadMeta(){try{return JSON.parse(localStorage.getItem(META_KEY))||{};}catch(e){return {};}}
     function saveAll(message='Changes saved in this browser'){
       localStorage.setItem(STORE_KEY,JSON.stringify(records));
+      localStorage.setItem(IPH_TREND_KEY,JSON.stringify(iphTrendData));
+      localStorage.setItem(IPH_PERFORMANCE_KEY,JSON.stringify(performanceData));
+      localStorage.setItem(IPH_REVIEW_KEY,JSON.stringify(iphReviewData));
+      localStorage.setItem(IPH_WEEK_STATE_KEY,JSON.stringify(iphWeekState));
       meta.lastSaved=new Date().toISOString();
       localStorage.setItem(META_KEY,JSON.stringify(meta));
       $('saveState').textContent='Saved in this browser';
       $('lastUpdated').textContent='Last updated: '+formatDateTime(meta.lastSaved);
-      if(message) toast(message,'success');
+      if(message)toast(message,'success');
     }
     function n(value){if(value===null||value===undefined||value==='') return null; const num=Number(value); return Number.isFinite(num)?num:null;}
     function nz(value){const num=n(value); return num===null?0:num;}
@@ -1213,12 +1630,664 @@
     }
 
     function render(){
+      if(activeDashboardPage==='iph'){
+        renderIphPage();
+        renderMeta();
+        return;
+      }
       const rows=filteredRows();
       document.querySelectorAll('#workflowToggle button').forEach(b=>b.classList.toggle('active',b.dataset.workflow===currentWorkflow));
-      $('chartEyebrow').textContent=currentWorkflow;$('chartTitle').textContent=currentWorkflow+' Snapshot';$('tableTitle').textContent=currentWorkflow+' • All records';
+      $('chartEyebrow').textContent=currentWorkflow;
+      $('chartTitle').textContent=currentWorkflow+' Snapshot';
+      $('tableTitle').textContent=currentWorkflow+' • All records';
       $('averageRangeText').textContent=rows.length?`${formatDate($('fromDate').value,true)} – ${formatDate($('toDate').value,true)}`:'No rows in selected date range';
-      renderAverages(rows);renderChart(rows);renderAge(rows);renderAoQHealth(rows);renderQueueHealth(rows);renderTable(rows);renderMeta();
+      renderAverages(rows);
+      renderChart(rows);
+      renderAge(rows);
+      renderAoQHealth(rows);
+      renderQueueHealth(rows);
+      renderTable(rows);
+      renderMeta();
     }
+
+    function pctText(value,decimals=1){
+      return Number.isFinite(value)?(value*100).toFixed(decimals).replace(/\.0$/,'')+'%':'—';
+    }
+    function saturdayKey(value=new Date()){
+      const date=value instanceof Date?new Date(value):dateObj(value);
+      const daysSinceSaturday=(date.getDay()+1)%7;
+      date.setDate(date.getDate()-daysSinceSaturday);
+      return dateKey(date);
+    }
+    function checkpointSaturdayKey(value){
+      return saturdayKey(value);
+    }
+    function normalizeSaturdayCheckpointData(){
+      const dedupe=(rows,keyBuilder)=>{
+        const map=new Map();
+        rows.forEach(row=>{
+          if(!row?.date)return;
+          const normalized={...row,date:checkpointSaturdayKey(row.date)};
+          map.set(keyBuilder(normalized),normalized);
+        });
+        return [...map.values()];
+      };
+      iphTrendData=dedupe(iphTrendData,row=>row.workflow+'|'+row.date)
+        .sort((a,b)=>a.workflow.localeCompare(b.workflow)||a.date.localeCompare(b.date));
+      performanceData=dedupe(performanceData,row=>row.workflow+'|'+row.date)
+        .sort((a,b)=>a.workflow.localeCompare(b.workflow)||a.date.localeCompare(b.date));
+
+      const normalizedRaw={};
+      Object.entries(hmgRawData||{}).forEach(([date,snapshot])=>{
+        const normalizedDate=checkpointSaturdayKey(date);
+        normalizedRaw[normalizedDate]={...snapshot,date:normalizedDate};
+      });
+      hmgRawData=normalizedRaw;
+
+      if(iphWeekState.toDate)iphWeekState.toDate=checkpointSaturdayKey(iphWeekState.toDate);
+      if(iphWeekState.weekStart)iphWeekState.weekStart=checkpointSaturdayKey(iphWeekState.weekStart);
+      localStorage.setItem(IPH_TREND_KEY,JSON.stringify(iphTrendData));
+      localStorage.setItem(IPH_PERFORMANCE_KEY,JSON.stringify(performanceData));
+      localStorage.setItem(IPH_WEEK_STATE_KEY,JSON.stringify(iphWeekState));
+      localStorage.setItem(HMG_RAW_KEY,JSON.stringify(hmgRawData));
+    }
+    function ensureIphWeeklySlot(){
+      const currentSaturday=saturdayKey(new Date());
+      if(iphWeekState.weekStart!==currentSaturday){
+        iphWeekState={weekStart:currentSaturday,toDate:currentSaturday,completed:false};
+        localStorage.setItem(IPH_WEEK_STATE_KEY,JSON.stringify(iphWeekState));
+        return true;
+      }
+      if(!iphWeekState.toDate)iphWeekState.toDate=currentSaturday;
+      return false;
+    }
+    function checkpointDates(){
+      return [...new Set(
+        iphTrendData
+          .filter(row=>row.date&&Number.isFinite(row.iph)&&Number.isFinite(row.goal)&&row.goal>0)
+          .map(row=>row.date)
+      )].sort();
+    }
+    function selectedIphDate(){
+      return $('iphToDate')?.value||iphWeekState.toDate||saturdayKey(new Date());
+    }
+    function previousCheckpointDates(selected=selectedIphDate()){
+      return checkpointDates().filter(date=>date<selected).slice(-4);
+    }
+    function checkpointWindowDates(selected=selectedIphDate()){
+      return [...previousCheckpointDates(selected),selected]
+        .filter((date,index,array)=>array.indexOf(date)===index)
+        .sort();
+    }
+    function setIphDates(selectedDate=null){
+      ensureIphWeeklySlot();
+      const selected=selectedDate||$('iphToDate')?.value||iphWeekState.toDate||saturdayKey(new Date());
+      iphWeekState.toDate=selected;
+      if($('iphToDate'))$('iphToDate').value=selected;
+
+      const previousFour=previousCheckpointDates(selected);
+      const earliestPreviousCheckpoint=previousFour[0]||selected;
+      if($('iphFromDate'))$('iphFromDate').value=earliestPreviousCheckpoint;
+
+      localStorage.setItem(IPH_WEEK_STATE_KEY,JSON.stringify(iphWeekState));
+    }
+    function trendRecord(workflow,date){
+      return iphTrendData.find(row=>row.workflow===workflow&&row.date===date)||null;
+    }
+    function previousGoal(workflow,date,fallback){
+      const previous=iphTrendData
+        .filter(row=>row.workflow===workflow&&row.date<date&&Number.isFinite(row.goal)&&row.goal>0)
+        .sort((a,b)=>a.date.localeCompare(b.date))
+        .at(-1);
+      return previous?.goal??fallback;
+    }
+    function goalBandClass(percent){
+      if(!Number.isFinite(percent))return '';
+      if(percent<1)return 'iph-goal-below';
+      if(percent>=1.2)return 'iph-goal-above';
+      return 'iph-goal-consistent';
+    }
+    function goalBandColor(percent){
+      const theme=getComputedStyle(document.documentElement);
+      if(!Number.isFinite(percent))return theme.getPropertyValue('--muted').trim()||'#7f8790';
+      if(percent<1)return theme.getPropertyValue('--red').trim()||'#c33a40';
+      if(percent>=1.2)return theme.getPropertyValue('--green').trim()||'#20a464';
+      return theme.getPropertyValue('--muted').trim()||'#7f8790';
+    }
+    function inputNumber(id){
+      const input=$(id);
+      if(!input||input.value==='')return null;
+      const value=Number(input.value);
+      return Number.isFinite(value)?value:null;
+    }
+    function selectedDraft(workflow){
+      const prefix=workflow==='Appeals PPQ'?'appeals':'pa';
+      const saved=trendRecord(workflow,selectedIphDate());
+      const iph=Number.isFinite(saved?.iph)?saved.iph:null;
+      const enteredGoal=inputNumber(prefix+'GoalInput');
+      const goal=Number.isFinite(enteredGoal)
+        ?enteredGoal
+        :Number.isFinite(saved?.goal)
+          ?saved.goal
+          :previousGoal(workflow,selectedIphDate(),workflow==='Appeals PPQ'?11:16);
+      return {
+        workflow,
+        date:selectedIphDate(),
+        iph,
+        goal,
+        percent:Number.isFinite(iph)&&Number.isFinite(goal)&&goal>0?iph/goal:null
+      };
+    }
+    function displayRecord(workflow,date){
+      if(date===selectedIphDate()){
+        const draft=selectedDraft(workflow);
+        const saved=trendRecord(workflow,date);
+        return {
+          workflow,date,
+          iph:Number.isFinite(draft.iph)?draft.iph:saved?.iph,
+          goal:Number.isFinite(draft.goal)?draft.goal:saved?.goal,
+          percent:Number.isFinite(draft.percent)
+            ?draft.percent
+            :(saved&&saved.goal>0?saved.iph/saved.goal:null)
+        };
+      }
+      const saved=trendRecord(workflow,date);
+      return saved?{...saved,percent:saved.goal>0?saved.iph/saved.goal:null}:null;
+    }
+    function tableDatesFor(workflow){
+      return [...new Set([
+        selectedIphDate(),
+        ...iphTrendData.filter(row=>row.workflow===workflow).map(row=>row.date)
+      ])].filter(Boolean).sort().reverse();
+    }
+    function selectedGoal(workflow,date){
+      const saved=trendRecord(workflow,date);
+      if(Number.isFinite(saved?.goal))return saved.goal;
+      return previousGoal(workflow,date,workflow==='Appeals PPQ'?11:16);
+    }
+    function selectedIph(workflow,date){
+      const saved=trendRecord(workflow,date);
+      return Number.isFinite(saved?.iph)?saved.iph:'';
+    }
+    function renderIphTable(workflow,bodyId){
+      const prefix=workflow==='Appeals PPQ'?'appeals':'pa';
+      const selected=selectedIphDate();
+      const rows=tableDatesFor(workflow);
+      $(bodyId).innerHTML=rows.map(date=>{
+        const saved=trendRecord(workflow,date);
+        const isSelected=date===selected;
+        const iph=saved?.iph;
+        const goal=saved?.goal;
+        const percent=Number.isFinite(iph)&&Number.isFinite(goal)&&goal>0?iph/goal:null;
+        if(isSelected){
+          return `<tr class="iph-selected-row">
+            <td>${formatDate(date)}</td>
+            <td id="${prefix}PercentCell" class="${goalBandClass(percent)}">${pctText(percent,1)}</td>
+            <td class="calculated-iph">${Number.isFinite(iph)?fmt(iph,2):'—'}</td>
+            <td><input id="${prefix}GoalInput" type="number" min="0.01" step="0.01" inputmode="decimal" value="${selectedGoal(workflow,date)}" aria-label="${workflow} goal for ${formatDate(date,true)}"></td>
+          </tr>`;
+        }
+        return `<tr>
+          <td>${formatDate(date)}</td>
+          <td class="${goalBandClass(percent)}">${pctText(percent,1)}</td>
+          <td>${fmt(iph,2)}</td>
+          <td>${fmt(goal,2)}</td>
+        </tr>`;
+      }).join('');
+    }
+    function bindIphInputs(){
+      [
+        ['appealsGoalInput','Appeals PPQ'],
+        ['paGoalInput','PA PPQ']
+      ].forEach(([id,workflow])=>{
+        const input=$(id);
+        if(!input)return;
+        input.addEventListener('input',updateIphPreview);
+        input.addEventListener('change',()=>{
+          autoSaveIphGoal(workflow);
+          renderIphPage();
+        });
+      });
+    }
+    function updateIphPercentCell(prefix,workflow){
+      const draft=selectedDraft(workflow);
+      const cell=$(prefix+'PercentCell');
+      if(!cell)return;
+      cell.textContent=pctText(draft.percent,1);
+      cell.className=goalBandClass(draft.percent);
+    }
+    function iphWindowRows(workflow){
+      return checkpointWindowDates().map(date=>displayRecord(workflow,date)).filter(row=>row&&Number.isFinite(row.percent));
+    }
+    function renderIphChart(rows,id){
+      const area=$(id);
+      if(!rows.length){
+        area.innerHTML='<div class="chart-empty"><div><strong>No IPH points yet</strong>Upload the HMG Table to create this Saturday’s checkpoint.</div></div>';
+        return;
+      }
+      const width=Math.max(420,Math.floor(area.getBoundingClientRect().width||520)-4);
+      const height=255,left=50,right=18,top=28,bottom=42,plotW=width-left-right,plotH=height-top-bottom;
+      const values=rows.map(row=>row.percent).filter(Number.isFinite);
+      const rawMin=Math.min(...values,1),rawMax=Math.max(...values,1.2);
+      const min=Math.max(0,Math.floor((rawMin-.08)*10)/10);
+      const max=Math.ceil((rawMax+.08)*10)/10;
+      const span=Math.max(.2,max-min);
+      const x=index=>rows.length===1?left+plotW/2:left+index*(plotW/(rows.length-1));
+      const y=value=>top+plotH-((value-min)/span)*plotH;
+      const theme=getComputedStyle(document.documentElement);
+      const line=theme.getPropertyValue('--blue').trim()||'#1769d2';
+      const surface=theme.getPropertyValue('--surface').trim()||'#fff';
+      const border=theme.getPropertyValue('--border').trim()||'#dbe3ec';
+      const muted=theme.getPropertyValue('--muted').trim()||'#657184';
+      const ink=theme.getPropertyValue('--ink').trim()||'#172235';
+      let svg=`<svg width="${width}" height="${height}" viewBox="0 0 ${width} ${height}" role="img" aria-label="IPH percent to goal chart"><rect width="${width}" height="${height}" fill="${surface}"/>`;
+      for(let index=0;index<=4;index++){
+        const value=max-span*index/4,yy=y(value);
+        svg+=`<line x1="${left}" y1="${yy}" x2="${width-right}" y2="${yy}" stroke="${border}"/><text x="${left-7}" y="${yy+4}" text-anchor="end" fill="${muted}" font-size="10">${Math.round(value*100)}%</text>`;
+      }
+      [1,1.2].forEach((value,index)=>{
+        if(value>=min&&value<=max){
+          const yy=y(value);
+          svg+=`<line x1="${left}" y1="${yy}" x2="${width-right}" y2="${yy}" stroke="${index===0?goalBandColor(.9):goalBandColor(1.2)}" stroke-width="1.2" stroke-dasharray="5 4"/><text x="${width-right}" y="${yy-5}" text-anchor="end" fill="${index===0?goalBandColor(.9):goalBandColor(1.2)}" font-size="9">${Math.round(value*100)}%</text>`;
+        }
+      });
+      const points=rows.map((row,index)=>`${x(index)},${y(row.percent)}`);
+      if(points.length>1)svg+=`<polyline points="${points.join(' ')}" fill="none" stroke="${line}" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>`;
+      rows.forEach((row,index)=>{
+        const xx=x(index),yy=y(row.percent),pointColor=goalBandColor(row.percent);
+        svg+=`<circle cx="${xx}" cy="${yy}" r="5" fill="${pointColor}" stroke="${surface}" stroke-width="1.5"/><text x="${xx}" y="${yy-11}" text-anchor="middle" fill="${pointColor}" font-size="10" font-weight="900" paint-order="stroke" stroke="${surface}" stroke-width="3">${pctText(row.percent,1)}</text><text x="${xx}" y="${height-17}" text-anchor="middle" fill="${ink}" font-size="9.5">${dateObj(row.date).toLocaleDateString(undefined,{month:'short',day:'numeric'})}</text>`;
+      });
+      svg+='</svg>';
+      area.innerHTML=svg;
+    }
+    function updateIphPreview(){
+      updateIphPercentCell('appeals','Appeals PPQ');
+      updateIphPercentCell('pa','PA PPQ');
+      const appeals=iphWindowRows('Appeals PPQ');
+      const pa=iphWindowRows('PA PPQ');
+      renderIphChart(appeals,'appealsIphChart');
+      renderIphChart(pa,'paIphChart');
+      const range=`${formatShortDate($('iphFromDate').value)} to ${formatShortDate($('iphToDate').value)}`;
+      $('appealsIphCountText').textContent=`${appeals.length} of 5 points visible · ${range}`;
+      $('paIphCountText').textContent=`${pa.length} of 5 points visible · ${range}`;
+    }
+    function loadIphCheckpointForm(){
+      setIphDates($('iphToDate')?.value||null);
+      renderIphPage();
+    }
+    function upsertIphTrend(workflow,date,draft){
+      iphTrendData=iphTrendData.filter(row=>!(row.workflow===workflow&&row.date===date));
+      iphTrendData.push({
+        workflow,date,iph:draft.iph,goal:draft.goal,
+        modifiedAt:new Date().toISOString()
+      });
+      iphTrendData.sort((a,b)=>a.workflow.localeCompare(b.workflow)||a.date.localeCompare(b.date));
+    }
+    function autoSaveIphGoal(workflow){
+      const date=selectedIphDate();
+      const draft=selectedDraft(workflow);
+      const saved=trendRecord(workflow,date);
+      const hasGoal=Number.isFinite(draft.goal)&&draft.goal>0;
+
+      iphTrendData=iphTrendData.filter(row=>!(row.workflow===workflow&&row.date===date));
+      if(saved||hasGoal){
+        iphTrendData.push({
+          workflow,
+          date,
+          iph:Number.isFinite(saved?.iph)?saved.iph:null,
+          goal:hasGoal?draft.goal:(saved?.goal??null),
+          sourceFileName:saved?.sourceFileName,
+          modifiedAt:new Date().toISOString()
+        });
+      }
+      iphTrendData.sort((a,b)=>a.workflow.localeCompare(b.workflow)||a.date.localeCompare(b.date));
+      recalculatePerformanceFromStoredHmg(workflow,date,draft.goal);
+      saveAll('');
+    }
+
+    function latestSaturdayKey(value=new Date()){
+      return saturdayKey(value);
+    }
+    function parseHmgDuration(value){
+      const text=String(value??'').trim();
+      if(!text)return 0;
+      const parts=text.split(':').map(Number);
+      if(parts.some(part=>!Number.isFinite(part)))return 0;
+      if(parts.length===3)return parts[0]+parts[1]/60+parts[2]/3600;
+      if(parts.length===2)return parts[0]/60+parts[1]/3600;
+      const numeric=Number(text);
+      return Number.isFinite(numeric)?numeric:0;
+    }
+    function parseHmgPercent(value){
+      const text=String(value??'').trim();
+      if(!text)return 0;
+      const number=Number(text.replace('%','').replace(/,/g,''));
+      if(!Number.isFinite(number))return 0;
+      return text.includes('%')?number/100:(number>1?number/100:number);
+    }
+    function parseHmgNumber(value){
+      const text=String(value??'').trim();
+      if(!text)return null;
+      const number=Number(text.replace(/,/g,''));
+      return Number.isFinite(number)?number:null;
+    }
+    function parseDelimitedText(text,delimiter){
+      const rows=[];
+      let row=[],cell='',quoted=false;
+      for(let index=0;index<text.length;index++){
+        const char=text[index];
+        if(char==='"'){
+          if(quoted&&text[index+1]==='"'){cell+='"';index++;}
+          else quoted=!quoted;
+        }else if(char===delimiter&&!quoted){
+          row.push(cell);cell='';
+        }else if((char==='\n'||char==='\r')&&!quoted){
+          if(char==='\r'&&text[index+1]==='\n')index++;
+          row.push(cell);cell='';
+          if(row.some(value=>String(value).trim()!==''))rows.push(row);
+          row=[];
+        }else{
+          cell+=char;
+        }
+      }
+      row.push(cell);
+      if(row.some(value=>String(value).trim()!==''))rows.push(row);
+      return rows;
+    }
+    function decodeHmgFile(buffer){
+      const bytes=new Uint8Array(buffer);
+      let text;
+      if(bytes[0]===0xFF&&bytes[1]===0xFE){
+        text=new TextDecoder('utf-16le').decode(bytes);
+      }else if(bytes[0]===0xFE&&bytes[1]===0xFF){
+        text=new TextDecoder('utf-16be').decode(bytes);
+      }else{
+        text=new TextDecoder('utf-8').decode(bytes);
+      }
+      return text.replace(/^\uFEFF/,'');
+    }
+    function hmgHeaderIndex(headers,name){
+      const target=normalize(name);
+      return headers.findIndex(header=>normalize(header)===target);
+    }
+    function parseHmgText(text,fileName){
+      const firstLine=text.split(/\r?\n/,1)[0]||'';
+      const delimiter=firstLine.includes('\t')?'\t':',';
+      const rows=parseDelimitedText(text,delimiter);
+      if(rows.length<2)throw new Error('The HMG file does not contain any data rows.');
+
+      const headers=rows[0];
+      const columns={
+        employee:hmgHeaderIndex(headers,'Team Member'),
+        employeeType:hmgHeaderIndex(headers,'Employee Type'),
+        appealsTime:hmgHeaderIndex(headers,'Appeals PPQ Time'),
+        appealsPercent:hmgHeaderIndex(headers,'Appeals PPQ % of Time'),
+        appealsIph:hmgHeaderIndex(headers,'Appeals PPQ IpH'),
+        paTime:hmgHeaderIndex(headers,'PA PPQ Time'),
+        paPercent:hmgHeaderIndex(headers,'PA PPQ % of Time'),
+        paIph:hmgHeaderIndex(headers,'PA PPQ IpH')
+      };
+      const missing=Object.entries(columns)
+        .filter(([key,index])=>key!=='employeeType'&&index<0)
+        .map(([key])=>key);
+      if(missing.length)throw new Error('This file is missing required HMG columns: '+missing.join(', ')+'.');
+
+      const parsed=rows.slice(1).map((row,index)=>({
+        employee:String(row[columns.employee]??'').trim()||`Row ${index+2}`,
+        employeeType:columns.employeeType>=0?String(row[columns.employeeType]??'').trim():'',
+        appealsTimeHours:parseHmgDuration(row[columns.appealsTime]),
+        appealsPercent:parseHmgPercent(row[columns.appealsPercent]),
+        appealsIph:parseHmgNumber(row[columns.appealsIph]),
+        paTimeHours:parseHmgDuration(row[columns.paTime]),
+        paPercent:parseHmgPercent(row[columns.paPercent]),
+        paIph:parseHmgNumber(row[columns.paIph])
+      })).filter(row=>
+        row.appealsTimeHours>0||
+        row.paTimeHours>0||
+        Number.isFinite(row.appealsIph)||
+        Number.isFinite(row.paIph)
+      );
+
+      if(!parsed.length)throw new Error('No usable HMG employee rows were found.');
+      return {fileName,rows:parsed};
+    }
+    function calculateHmgWorkflow(rows,workflow,goal){
+      const isAppeals=workflow==='Appeals PPQ';
+      const timeKey=isAppeals?'appealsTimeHours':'paTimeHours';
+      const percentKey=isAppeals?'appealsPercent':'paPercent';
+      const iphKey=isAppeals?'appealsIph':'paIph';
+
+      let totalHours=0;
+      let estimatedInteractions=0;
+      const counts={outstanding:0,strong:0,consistent:0,notMeeting:0};
+
+      rows.forEach(row=>{
+        const hours=row[timeKey];
+        const iph=row[iphKey];
+        const percent=row[percentKey];
+
+        if(Number.isFinite(hours)&&hours>0&&Number.isFinite(iph)){
+          totalHours+=hours;
+          estimatedInteractions+=hours*iph;
+        }
+
+        if(Number.isFinite(percent)&&percent>=.40&&Number.isFinite(iph)){
+          const ratio=goal>0?iph/goal:0;
+          if(ratio>=1.40)counts.outstanding++;
+          else if(ratio>=1.20)counts.strong++;
+          else if(ratio>=1.00)counts.consistent++;
+          else counts.notMeeting++;
+        }
+      });
+
+      const overallIph=totalHours>0?estimatedInteractions/totalHours:null;
+      const hc=counts.outstanding+counts.strong+counts.consistent+counts.notMeeting;
+      const divide=value=>hc>0?value/hc:null;
+
+      return {
+        overallIph,totalHours,hc,
+        above:divide(counts.outstanding+counts.strong),
+        bandConsistent:divide(counts.consistent),
+        below:divide(counts.notMeeting),
+        oCount:counts.outstanding,oPct:divide(counts.outstanding),
+        sCount:counts.strong,sPct:divide(counts.strong),
+        cCount:counts.consistent,cPct:divide(counts.consistent),
+        nCount:counts.notMeeting,nPct:divide(counts.notMeeting)
+      };
+    }
+    function upsertCalculatedPerformance(workflow,date,metrics,fileName){
+      performanceData=performanceData.filter(row=>!(row.workflow===workflow&&row.date===date));
+      performanceData.push({
+        workflow,date,hc:metrics.hc,
+        above:metrics.above,bandConsistent:metrics.bandConsistent,below:metrics.below,
+        oCount:metrics.oCount,oPct:metrics.oPct,
+        sCount:metrics.sCount,sPct:metrics.sPct,
+        cCount:metrics.cCount,cPct:metrics.cPct,
+        nCount:metrics.nCount,nPct:metrics.nPct,
+        sourceFileName:fileName,
+        modifiedAt:new Date().toISOString()
+      });
+      performanceData.sort((a,b)=>a.workflow.localeCompare(b.workflow)||a.date.localeCompare(b.date));
+    }
+    function recalculatePerformanceFromStoredHmg(workflow,date,goal){
+      const snapshot=hmgRawData[date];
+      if(!snapshot?.rows?.length||!Number.isFinite(goal)||goal<=0)return;
+      const metrics=calculateHmgWorkflow(snapshot.rows,workflow,goal);
+      upsertCalculatedPerformance(workflow,date,metrics,snapshot.fileName);
+    }
+    function setHmgUploadStatus(type,title,detail){
+      const status=$('hmgUploadStatus');
+      if(!status)return;
+      status.className='hmg-upload-status'+(type?' '+type:'');
+      status.innerHTML=`<strong>${escapeHtml(title)}</strong><span>${escapeHtml(detail)}</span>`;
+    }
+    function renderHmgUploadStatus(){
+      const last=meta.lastHmgImport;
+      if(!last){
+        setHmgUploadStatus('','Ready for this week’s HMG Table','The checkpoint date will be selected automatically.');
+        return;
+      }
+      setHmgUploadStatus(
+        'success',
+        `${last.fileName} applied to ${formatDate(last.date,true)}`,
+        `Appeals IPH ${fmt(last.appealsIph,2)} · PA IPH ${fmt(last.paIph,2)} · ${formatDateTime(last.when)}`
+      );
+    }
+    async function importHmgFile(file){
+      if(!file)return;
+      if(!/\.(csv|txt)$/i.test(file.name))throw new Error('Choose the HMG_Table CSV file.');
+      setHmgUploadStatus('busy','Reading HMG Table…','Calculating this week’s IPH and performance ratings.');
+
+      const text=decodeHmgFile(await file.arrayBuffer());
+      const snapshot=parseHmgText(text,file.name);
+      const date=latestSaturdayKey(new Date());
+
+      iphWeekState={weekStart:date,toDate:date,completed:true};
+      if($('iphToDate'))$('iphToDate').value=date;
+
+      const appealsGoal=selectedGoal('Appeals PPQ',date);
+      const paGoal=selectedGoal('PA PPQ',date);
+      const appeals=calculateHmgWorkflow(snapshot.rows,'Appeals PPQ',appealsGoal);
+      const pa=calculateHmgWorkflow(snapshot.rows,'PA PPQ',paGoal);
+
+      if(!Number.isFinite(appeals.overallIph)||!Number.isFinite(pa.overallIph)){
+        throw new Error('The file did not contain enough workflow time and IPH data to calculate both queues.');
+      }
+
+      hmgRawData[date]={
+        date,fileName:file.name,uploadedAt:new Date().toISOString(),rows:snapshot.rows
+      };
+
+      iphTrendData=iphTrendData.filter(row=>row.date!==date);
+      iphTrendData.push(
+        {workflow:'Appeals PPQ',date,iph:appeals.overallIph,goal:appealsGoal,sourceFileName:file.name,modifiedAt:new Date().toISOString()},
+        {workflow:'PA PPQ',date,iph:pa.overallIph,goal:paGoal,sourceFileName:file.name,modifiedAt:new Date().toISOString()}
+      );
+      iphTrendData.sort((a,b)=>a.workflow.localeCompare(b.workflow)||a.date.localeCompare(b.date));
+
+      upsertCalculatedPerformance('Appeals PPQ',date,appeals,file.name);
+      upsertCalculatedPerformance('PA PPQ',date,pa,file.name);
+
+      meta.lastHmgImport={
+        fileName:file.name,date,when:new Date().toISOString(),
+        appealsIph:appeals.overallIph,paIph:pa.overallIph,
+        appealsHc:appeals.hc,paHc:pa.hc
+      };
+      setIphDates(date);
+      saveAll('');
+      renderIphPage();
+      setHmgUploadStatus(
+        'success',
+        `${file.name} applied to ${formatDate(date,true)}`,
+        `Appeals IPH ${fmt(appeals.overallIph,2)} · PA IPH ${fmt(pa.overallIph,2)} · Appeals HC ${fmt(appeals.hc,0)} · PA HC ${fmt(pa.hc,0)}`
+      );
+      toast('HMG Table calculated and saved for '+formatDate(date,true)+'.','success');
+    }
+
+    function performanceRecord(workflow,date){
+      return performanceData.find(row=>row.workflow===workflow&&row.date===date)||null;
+    }
+    function calculatedPerformanceRecord(workflow,date){
+      const saved=performanceRecord(workflow,date);
+      if(!saved)return null;
+      return {
+        workflow,date,hasAny:true,
+        outstanding:saved.oCount,strong:saved.sCount,consistent:saved.cCount,notMeeting:saved.nCount,
+        hc:saved.hc,
+        meeting:Number.isFinite(saved.hc)&&saved.hc>0?(nz(saved.oCount)+nz(saved.sCount)+nz(saved.cCount))/saved.hc:null,
+        above:saved.above,bandConsistent:saved.bandConsistent,below:saved.below,
+        outstandingPct:saved.oPct,strongPct:saved.sPct,consistentPct:saved.cPct,notMeetingPct:saved.nPct
+      };
+    }
+    function performanceDatesFor(workflow){
+      return [...new Set([
+        selectedIphDate(),
+        ...performanceData.filter(row=>row.workflow===workflow).map(row=>row.date)
+      ])].filter(Boolean).sort().reverse();
+    }
+    function renderPerformanceTable(workflow,bodyId){
+      const selected=selectedIphDate();
+      $(bodyId).innerHTML=performanceDatesFor(workflow).map(date=>{
+        const row=calculatedPerformanceRecord(workflow,date);
+        const selectedRow=date===selected;
+        const rating=count=>Number.isFinite(count)?fmt(count,0):'—';
+        return `<tr class="${selectedRow?'performance-selected-row':''}">
+          <td>${formatDate(date)}</td>
+          <td class="performance-calculated">${fmt(row?.hc,0)}</td>
+          <td class="performance-calculated performance-above">${pctText(row?.above,1)}</td>
+          <td class="performance-calculated performance-consistent">${pctText(row?.bandConsistent,1)}</td>
+          <td class="performance-calculated performance-below">${pctText(row?.below,1)}</td>
+          <td>${rating(row?.outstanding)}</td><td>${pctText(row?.outstandingPct,1)}</td>
+          <td>${rating(row?.strong)}</td><td>${pctText(row?.strongPct,1)}</td>
+          <td>${rating(row?.consistent)}</td><td>${pctText(row?.consistentPct,1)}</td>
+          <td>${rating(row?.notMeeting)}</td><td>${pctText(row?.notMeetingPct,1)}</td>
+        </tr>`;
+      }).join('');
+    }
+    function summaryPerformanceValue(row,key){
+      if(!row)return '—';
+      if(key==='hc')return fmt(row.hc,0);
+      if(['outstanding','strong','consistent','notMeeting'].includes(key)){
+        const pctKey={
+          outstanding:'outstandingPct',
+          strong:'strongPct',
+          consistent:'consistentPct',
+          notMeeting:'notMeetingPct'
+        }[key];
+        return `${fmt(row[key],0)} (${pctText(row[pctKey],1)})`;
+      }
+      return pctText(row[key],1);
+    }
+    function renderPerformanceSummary(){
+      const date=selectedIphDate();
+      const appeals=calculatedPerformanceRecord('Appeals PPQ',date);
+      const pa=calculatedPerformanceRecord('PA PPQ',date);
+      $('performanceSummaryDate').textContent=formatDate(date,true);
+      const measures=[
+        ['hc','Headcount'],
+        ['meeting','Meeting'],
+        ['notMeetingPct','Not Meeting'],
+        ['outstanding','Outstanding'],
+        ['strong','Strong'],
+        ['consistent','Consistent'],
+        ['notMeeting','Not Meeting']
+      ];
+      $('performanceSummaryBody').innerHTML=measures.map(([key,label])=>`
+        <tr>
+          <td>${label}</td>
+          <td>${summaryPerformanceValue(appeals,key)}</td>
+          <td>${summaryPerformanceValue(pa,key)}</td>
+        </tr>`).join('');
+    }
+    function renderAgentPerformance(){
+      renderPerformanceTable('Appeals PPQ','appealsPerformanceBody');
+      renderPerformanceTable('PA PPQ','paPerformanceBody');
+      renderPerformanceSummary();
+    }
+
+    function renderIphPage(){
+      setIphDates();
+      renderIphTable('Appeals PPQ','appealsIphTableBody');
+      renderIphTable('PA PPQ','paIphTableBody');
+      bindIphInputs();
+      updateIphPreview();
+      renderAgentPerformance();
+      renderHmgUploadStatus();
+    }
+    function showDashboardPage(page){
+      activeDashboardPage=page;
+      document.querySelectorAll('[data-dashboard-page]').forEach(button=>button.classList.toggle('active',button.dataset.dashboardPage===page));
+      $('queueDashboardPage').classList.toggle('active',page==='queue');
+      $('iphDashboardPage').classList.toggle('active',page==='iph');
+      if(page==='iph'){
+        ensureIphWeeklySlot();
+        setIphDates();
+        renderIphPage();
+      }else{
+        render();
+      }
+    }
+
     function renderMeta(){
       $('lastUpdated').textContent='Last updated: '+formatDateTime(meta.lastSaved);
       $('lastImport').innerHTML=meta.lastImport?`Last import: <b>${escapeHtml(meta.lastImport.fileName)}</b><br>${formatDateTime(meta.lastImport.when)} · ${nf0.format(meta.lastImport.count)} rows applied`:'No file has been imported in this browser.';
@@ -1431,14 +2500,48 @@
     function applyImport(){if(!pendingImport)return;const mode=document.querySelector('input[name="importMode"]:checked')?.value||'merge';const importedWorkflows=[...new Set(pendingImport.records.map(r=>r.workflow))];if(mode==='replace')records=records.filter(r=>!importedWorkflows.includes(r.workflow));const map=new Map(records.map(r=>[r.workflow+'|'+r.snapshotDate,r]));pendingImport.records.forEach(r=>map.set(r.workflow+'|'+r.snapshotDate,{...r,modifiedAt:new Date().toISOString()}));records=[...map.values()];ensureTodayRows();meta.lastImport={fileName:pendingImport.fileName,when:new Date().toISOString(),count:pendingImport.records.length};saveAll(`${nf0.format(pendingImport.records.length)} rows were applied.`);pendingImport=null;$('importPreview').classList.remove('show');currentRangePreset='10';applyRangePreset('10',false);render();}
     function cancelImport(){pendingImport=null;$('importPreview').classList.remove('show');}
 
-    function exportCsv(){const rows=filteredRows(),cols=tableColumns();if(!rows.length){toast('There is no filtered data to export.','warn');return;}const headers=['Workflow',...cols.map(c=>c.label)];const lines=[headers.map(csvEscape).join(',')];rows.forEach(r=>lines.push([r.workflow,...cols.map(c=>c.key==='snapshotDate'?r.snapshotDate:r[c.key])].map(csvEscape).join(',')));downloadBlob(new Blob([lines.join('\r\n')],{type:'text/csv;charset=utf-8'}),`Outcomes_Ops_Dashboard_${currentWorkflow.replace(/\s+/g,'_')}_${$('fromDate').value}_to_${$('toDate').value}.csv`);}
+    function exportCsv(){
+      if(activeDashboardPage==='iph'){
+        const lines=[['IPH Trends'].map(csvEscape).join(',')];
+        lines.push(['Workflow','Date','% to Goal','IPH','Goal'].map(csvEscape).join(','));
+        ['Appeals PPQ','PA PPQ'].forEach(workflow=>{
+          iphTrendData
+            .filter(row=>row.workflow===workflow)
+            .sort((a,b)=>b.date.localeCompare(a.date))
+            .forEach(row=>lines.push([
+              workflow,row.date,row.goal>0?row.iph/row.goal:null,row.iph,row.goal
+            ].map(csvEscape).join(',')));
+        });
+        lines.push('');
+        lines.push(['Agent Performance Ratings'].map(csvEscape).join(','));
+        lines.push(['Workflow','Date','HC','Above','Consistent','Below','Outstanding','Outstanding %','Strong','Strong %','Consistent Count','Consistent %','Not Meeting','Not Meeting %'].map(csvEscape).join(','));
+        ['Appeals PPQ','PA PPQ'].forEach(workflow=>{
+          performanceData
+            .filter(row=>row.workflow===workflow)
+            .sort((a,b)=>b.date.localeCompare(a.date))
+            .forEach(row=>lines.push([
+              workflow,row.date,row.hc,row.above,row.bandConsistent,row.below,
+              row.oCount,row.oPct,row.sCount,row.sPct,row.cCount,row.cPct,row.nCount,row.nPct
+            ].map(csvEscape).join(',')));
+        });
+        downloadBlob(new Blob([lines.join('\r\n')],{type:'text/csv;charset=utf-8'}),'Outcomes_Ops_Dashboard_IPH_and_Performance.csv');
+        return;
+      }
+      const rows=filteredRows(),cols=tableColumns();
+      if(!rows.length){toast('There is no filtered data to export.','warn');return;}
+      const headers=['Workflow',...cols.map(column=>column.label)];
+      const lines=[headers.map(csvEscape).join(',')];
+      rows.forEach(row=>lines.push([row.workflow,...cols.map(column=>column.key==='snapshotDate'?row.snapshotDate:row[column.key])].map(csvEscape).join(',')));
+      downloadBlob(new Blob([lines.join('\r\n')],{type:'text/csv;charset=utf-8'}),`Outcomes_Ops_Dashboard_${currentWorkflow.replace(/\s+/g,'_')}_${$('fromDate').value}_to_${$('toDate').value}.csv`);
+    }
     function csvEscape(value){if(value===null||value===undefined)return '';const s=String(value);return /[",\r\n]/.test(s)?'"'+s.replace(/"/g,'""')+'"':s;}
-    function downloadBackup(){const payload={build:'Pinapple',exportedAt:new Date().toISOString(),records,meta,appearance:appearanceState};downloadBlob(new Blob([JSON.stringify(payload,null,2)],{type:'application/json'}),'Outcomes-Ops-Dashboard-Pinapple-backup.json');}
-    function restoreBackup(file){const reader=new FileReader();reader.onload=()=>{try{const payload=JSON.parse(reader.result);if(!Array.isArray(payload.records))throw new Error('No records array was found.');records=payload.records;meta=payload.meta||{};if(payload.appearance){appearanceState=normalizeAppearance(payload.appearance);saveAppearance();applyAppearance(appearanceState,false);}ensureTodayRows();saveAll('Browser backup restored.');setDefaultDates();render();}catch(err){toast('The selected backup could not be restored: '+err.message,'error');}};reader.readAsText(file);}
+    function downloadBackup(){const payload={build:'Pinapple',exportedAt:new Date().toISOString(),records,iphTrendData,performanceData,iphReviewData,iphWeekState,hmgRawData,meta,appearance:appearanceState};downloadBlob(new Blob([JSON.stringify(payload,null,2)],{type:'application/json'}),'Outcomes-Ops-Dashboard-Pinapple-backup.json');}
+    function restoreBackup(file){const reader=new FileReader();reader.onload=()=>{try{const payload=JSON.parse(reader.result);if(!Array.isArray(payload.records))throw new Error('No records array was found.');records=payload.records;iphTrendData=Array.isArray(payload.iphTrendData)?payload.iphTrendData:structuredClone(sampleIphTrendData);performanceData=Array.isArray(payload.performanceData)?payload.performanceData:structuredClone(samplePerformanceData);iphReviewData=payload.iphReviewData&&typeof payload.iphReviewData==='object'?payload.iphReviewData:{};iphWeekState=payload.iphWeekState&&typeof payload.iphWeekState==='object'?payload.iphWeekState:{};hmgRawData=payload.hmgRawData&&typeof payload.hmgRawData==='object'?payload.hmgRawData:{};meta=payload.meta||{};if(payload.appearance){appearanceState=normalizeAppearance(payload.appearance);saveAppearance();applyAppearance(appearanceState,false);}normalizeSaturdayCheckpointData();ensureTodayRows();saveAll('Browser backup restored.');setDefaultDates();render();}catch(err){toast('The selected backup could not be restored: '+err.message,'error');}};reader.readAsText(file);}
     function downloadBlob(blob,name){const url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download=name;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),1000);}
     function toast(message,type='info'){const el=document.createElement('div');el.className='toast '+type;el.innerHTML=`<span>${escapeHtml(message)}</span><button aria-label="Dismiss">×</button>`;el.querySelector('button').onclick=()=>el.remove();$('toastStack').appendChild(el);setTimeout(()=>el.remove(),5500);}
 
     function wireEvents(){
+      document.querySelectorAll('[data-dashboard-page]').forEach(button=>button.onclick=()=>showDashboardPage(button.dataset.dashboardPage));
       document.querySelectorAll('#workflowToggle button').forEach(btn=>btn.onclick=()=>{
         currentWorkflow=btn.dataset.workflow;
         render();
@@ -1462,8 +2565,34 @@
       });
       $('fromDate').addEventListener('click',openFromDatePicker);
       $('fromDate').onchange=()=>applyForwardRange();
-      $('refreshBtn').onclick=()=>{records=loadRecords();meta=loadMeta();const added=ensureTodayRows();if(!$('fromDate').value)setDefaultDates();else applyForwardRange(false);render();toast(added?`Today's PA PPQ and Appeals PPQ rows were added and the dashboard was refreshed.`:'The dashboard was refreshed from this browser.','success');};
+      $('refreshBtn').onclick=()=>{records=loadRecords();iphTrendData=loadIphTrendData();performanceData=loadIphPerformanceData();iphReviewData=loadIphReviewData();iphWeekState=loadIphWeekState();hmgRawData=loadHmgRawData();normalizeSaturdayCheckpointData();meta=loadMeta();const added=ensureTodayRows();if(!$('fromDate').value)setDefaultDates();else applyForwardRange(false);render();toast(added?`Today's PA PPQ and Appeals PPQ rows were added and the dashboard was refreshed.`:'The dashboard was refreshed from this browser.','success');};
       $('closeDrawerBtn').onclick=$('cancelDrawerBtn').onclick=closeDrawer;$('drawerBackdrop').onclick=e=>{if(e.target===$('drawerBackdrop'))closeDrawer();};$('saveEntryBtn').onclick=saveDrawer;$('deleteEntryBtn').onclick=deleteDrawer;
+      const hmgInput=$('hmgFileInput');
+      const hmgZone=$('hmgDropZone');
+      $('hmgBrowseBtn').onclick=()=>hmgInput.click();
+      hmgInput.onchange=async event=>{
+        const file=event.target.files[0];
+        try{await importHmgFile(file);}
+        catch(error){
+          setHmgUploadStatus('error','The HMG Table could not be applied',error.message||String(error));
+          toast(error.message||String(error),'error');
+        }finally{event.target.value='';}
+      };
+      ['dragenter','dragover'].forEach(name=>hmgZone.addEventListener(name,event=>{
+        event.preventDefault();hmgZone.classList.add('drag');
+      }));
+      ['dragleave','drop'].forEach(name=>hmgZone.addEventListener(name,event=>{
+        event.preventDefault();hmgZone.classList.remove('drag');
+      }));
+      hmgZone.addEventListener('drop',async event=>{
+        const file=event.dataTransfer.files[0];
+        try{await importHmgFile(file);}
+        catch(error){
+          setHmgUploadStatus('error','The HMG Table could not be applied',error.message||String(error));
+          toast(error.message||String(error),'error');
+        }
+      });
+
       $('fileInput').onchange=e=>handleFile(e.target.files[0]);const dz=$('dropZone');['dragenter','dragover'].forEach(evt=>dz.addEventListener(evt,e=>{e.preventDefault();dz.classList.add('drag');}));['dragleave','drop'].forEach(evt=>dz.addEventListener(evt,e=>{e.preventDefault();dz.classList.remove('drag');}));dz.addEventListener('drop',e=>handleFile(e.dataTransfer.files[0]));$('applyImportBtn').onclick=applyImport;$('cancelImportBtn').onclick=cancelImport;
       $('settingsBtn').onclick=openSettings;
       $('closeSettingsBtn').onclick=$('closeSettingsFootBtn').onclick=closeSettings;
@@ -1475,21 +2604,31 @@
       $('resetCustomThemeBtn').onclick=resetCustomTheme;
       $('settingsBackdrop').onclick=e=>{if(e.target===$('settingsBackdrop'))closeSettings();};
       $('exportCsvBtn').onclick=exportCsv;$('downloadBackupBtn').onclick=downloadBackup;$('restoreBackupBtn').onclick=()=>$('backupInput').click();$('backupInput').onchange=e=>{if(e.target.files[0])restoreBackup(e.target.files[0]);e.target.value='';};
-      $('loadDemoBtn').onclick=()=>{if(!confirm('Replace the browser data with the sample data?'))return;records=structuredClone(sampleRecords);meta={};ensureTodayRows();saveAll('Sample data reloaded.');setDefaultDates();render();};
-      $('clearAllBtn').onclick=()=>{if(!confirm('Clear every dashboard record saved in this browser?'))return;records=[];meta={};localStorage.removeItem(STORE_KEY);localStorage.removeItem(META_KEY);ensureTodayRows();setDefaultDates();render();toast('All data was cleared. Blank rows for today were retained in both workflows.','success');};
+      $('loadDemoBtn').onclick=()=>{if(!confirm('Replace the browser data with the sample data?'))return;records=structuredClone(sampleRecords);iphTrendData=structuredClone(sampleIphTrendData);performanceData=structuredClone(samplePerformanceData);iphReviewData={};iphWeekState={};hmgRawData={};normalizeSaturdayCheckpointData();ensureIphWeeklySlot();meta={};ensureTodayRows();saveAll('Sample data reloaded.');setDefaultDates();render();};
+      $('clearAllBtn').onclick=()=>{if(!confirm('Clear every dashboard record saved in this browser?'))return;records=[];iphTrendData=[];performanceData=[];iphReviewData={};iphWeekState={};hmgRawData={};meta={};[STORE_KEY,IPH_TREND_KEY,IPH_PERFORMANCE_KEY,IPH_REVIEW_KEY,IPH_WEEK_STATE_KEY,HMG_RAW_KEY,META_KEY].forEach(key=>localStorage.removeItem(key));ensureTodayRows();setDefaultDates();render();toast('All data was cleared. Blank rows for today were retained in both workflows.','success');};
       document.addEventListener('keydown',e=>{if(e.key==='Escape'){closeDrawer();closeSettings();}});
-      const checkForNewDay=()=>{if(ensureTodayRows()){if(!$('fromDate').value)setDefaultDates();else applyForwardRange(false);render();toast(`New PA PPQ and Appeals PPQ rows were added for ${formatDate(dateKey(new Date()),true)}.`,'success');}};
+      const checkForNewDay=()=>{
+        const queueAdded=ensureTodayRows();
+        const iphWeekAdded=ensureIphWeeklySlot();
+        if(queueAdded){if(!$('fromDate').value)setDefaultDates();else applyForwardRange(false);}
+        if(queueAdded||iphWeekAdded){
+          if(activeDashboardPage==='iph')setIphDates(iphWeekState.toDate);
+          render();
+          if(iphWeekAdded)toast('A new Saturday IPH checkpoint is ready.','success');
+          else toast(`New PA PPQ and Appeals PPQ rows were added for ${formatDate(dateKey(new Date()),true)}.`,'success');
+        }
+      };
       window.addEventListener('focus',checkForNewDay);
       document.addEventListener('visibilitychange',()=>{if(!document.hidden)checkForNewDay();});
 
       let chartResizeTimer;
       window.addEventListener('resize',()=>{
         window.clearTimeout(chartResizeTimer);
-        chartResizeTimer=window.setTimeout(()=>renderChart(filteredRows()),120);
+        chartResizeTimer=window.setTimeout(()=>{if(activeDashboardPage==='queue')renderChart(filteredRows());else renderIphPage();},120);
       });
     }
 
-    applyAppearance(appearanceState,false);ensureTodayRows();setDefaultDates();wireEvents();render();
+    applyAppearance(appearanceState,false);normalizeSaturdayCheckpointData();ensureTodayRows();ensureIphWeeklySlot();setDefaultDates();setIphDates();wireEvents();render();
   })();
   </script>
 </body>
