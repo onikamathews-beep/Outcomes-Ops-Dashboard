@@ -389,7 +389,20 @@
     .settings-actions .full{grid-column:1/-1}
     .settings-foot{margin-top:auto;padding:13px 19px;border-top:1px solid var(--border);display:flex;justify-content:flex-end;background:#fff}
     .settings-warning{border-left:4px solid #d99a00;background:#fff8df;padding:10px 11px;border-radius:7px;font-size:11px;line-height:1.45;color:#6f5312;margin-bottom:10px}
-    @media(max-width:650px){.settings-actions{grid-template-columns:1fr}.settings-actions .full{grid-column:auto}.settings-panel{width:100vw}}
+    .connection-chip{display:flex;align-items:center;gap:7px;border:1px solid rgba(255,255,255,.24);border-radius:999px;padding:5px 9px;font-size:11px;font-weight:800;color:var(--header-text);white-space:nowrap}
+    .connection-dot{width:8px;height:8px;border-radius:50%;background:#7ed7a1;box-shadow:0 0 0 3px rgba(126,215,161,.14)}
+    .connection-dot.waiting{background:#f1c75b;box-shadow:0 0 0 3px rgba(241,199,91,.14)}
+    .connection-overview{display:grid;gap:10px}
+    .connection-status-row{display:flex;align-items:flex-start;justify-content:space-between;gap:14px;padding:11px 12px;border:1px solid var(--border);border-radius:9px;background:var(--canvas)}
+    .connection-status-copy{display:grid;gap:3px}.connection-status-copy strong{font-size:13px}.connection-status-copy span{font-size:11px;color:var(--muted);line-height:1.45}
+    .status-badge{display:inline-flex;align-items:center;justify-content:center;border-radius:999px;padding:5px 9px;font-size:10px;font-weight:900;white-space:nowrap;background:var(--green-bg);color:var(--green)}
+    .status-badge.waiting{background:var(--yellow-bg);color:var(--yellow)}
+    .connection-list{display:grid;gap:7px;margin-top:2px}
+    .connection-list-item{display:grid;grid-template-columns:minmax(120px,.65fr) minmax(0,1.35fr);gap:10px;padding:8px 10px;border:1px solid var(--border);border-radius:8px;background:var(--surface);font-size:11px}
+    .connection-list-item b{color:var(--ink)}.connection-list-item span{color:var(--muted);overflow-wrap:anywhere}
+    .connection-placeholder{padding:9px 10px;border-left:4px solid var(--blue);border-radius:7px;background:var(--blue-soft);font-size:11px;line-height:1.45;color:var(--ink)}
+    .btn:disabled{opacity:.55;cursor:not-allowed;filter:saturate(.4)}
+    @media(max-width:650px){.settings-actions{grid-template-columns:1fr}.settings-actions .full{grid-column:auto}.settings-panel{width:100vw}.connection-chip{display:none}.connection-list-item{grid-template-columns:1fr}}
 
     .menu{position:relative}.menu-pop{position:absolute;right:0;top:43px;background:#fff;color:var(--ink);border:1px solid var(--border);border-radius:9px;box-shadow:0 10px 28px rgba(0,0,0,.2);min-width:210px;padding:6px;display:none;z-index:60}.menu-pop.show{display:grid}.menu-pop button{border:0;background:#fff;text-align:left;padding:9px 10px;border-radius:6px;color:#243a51}.menu-pop button:hover{background:#edf4fb}.menu-pop .danger-menu{color:#a22d34}
     .hidden{display:none!important}.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
@@ -405,13 +418,14 @@
       <div class="brandcopy"><div class="buildname">Build: Pinapple</div><h1>Outcomes Ops Dashboard</h1></div>
     </div>
     <div class="header-actions">
+      <div class="connection-chip" title="Current dashboard data source"><span class="connection-dot waiting" id="connectionDot"></span><span id="dataModeText">Browser mode</span></div>
       <div class="save-state"><span class="save-dot"></span><span id="saveState">Saved in this browser</span></div>
       <div class="header-time" id="lastUpdated">Last updated: —</div>
       <button class="btn btn-ghost" id="refreshBtn" type="button">Refresh</button>
       <button class="btn btn-ghost" id="settingsBtn" type="button" aria-label="Open settings">⚙ Settings</button>
     </div>
   </header>
-  <div class="prototype-note"><strong>Approval build:</strong> changes are saved only in this browser. Shared live saving will be connected to SharePoint after approval.</div>
+  <div class="prototype-note"><strong>Browser mode is active:</strong> the dashboard remains fully usable and saves locally. The SharePoint connection is staged and will stay off until the IAM registration details are added.</div>
   <div class="toast-stack" id="toastStack" aria-live="polite"></div>
 
   <main class="page">
@@ -835,6 +849,40 @@
 
         <section class="settings-section">
           <div class="settings-section-head">
+            <h3>Shared Data Connection</h3>
+            <p>The dashboard is prepared for Microsoft sign-in and shared SharePoint saving, but browser storage remains active until IAM provides the registration details.</p>
+          </div>
+          <div class="connection-overview">
+            <div class="connection-status-row">
+              <div class="connection-status-copy">
+                <strong>Current data mode</strong>
+                <span id="browserModeDetail">All imports, edits, charts, and backups continue to work in this browser.</span>
+              </div>
+              <span class="status-badge" id="browserModeBadge">Browser active</span>
+            </div>
+            <div class="connection-status-row">
+              <div class="connection-status-copy">
+                <strong>SharePoint connection</strong>
+                <span id="sharePointStatusDetail">Waiting for the Microsoft Entra Client ID and Tenant ID.</span>
+              </div>
+              <span class="status-badge waiting" id="sharePointStatusBadge">Waiting for IAM</span>
+            </div>
+            <div class="connection-list">
+              <div class="connection-list-item"><b>Daily queue list</b><span>Outcomes Ops Dashboard</span></div>
+              <div class="connection-list-item"><b>Weekly performance list</b><span>Outcomes Weekly Performance</span></div>
+              <div class="connection-list-item"><b>Redirect address</b><span>https://onikamathews-beep.github.io/outcomes-ops-dashboard/</span></div>
+            </div>
+            <div class="connection-placeholder">The Client ID and Tenant ID are not passwords. After IAM supplies them, they can be placed in the connection configuration and tested before shared saving is turned on.</div>
+            <div class="settings-actions">
+              <button class="btn btn-secondary full" id="checkSharePointBtn" type="button">Check SharePoint readiness</button>
+              <button class="btn btn-secondary" id="microsoftSignInBtn" type="button" disabled>Sign in to Microsoft</button>
+              <button class="btn btn-primary" id="transferToSharePointBtn" type="button" disabled>Transfer browser data</button>
+            </div>
+          </div>
+        </section>
+
+        <section class="settings-section">
+          <div class="settings-section-head">
             <h3>Approval-Build Data</h3>
             <p>These controls affect only the data saved in the current browser. They will be replaced by shared SharePoint controls later.</p>
           </div>
@@ -872,6 +920,58 @@
     const STORE_KEY = 'pinapple.dashboard.records';
     const META_KEY = 'pinapple.dashboard.meta';
     const APPEARANCE_KEY = 'pinapple.dashboard.appearance';
+
+    // SharePoint staging configuration. Browser mode remains active until IAM supplies
+    // the Client ID and Tenant ID and the connection is deliberately enabled.
+    const SHAREPOINT_CONFIG = Object.freeze({
+      enabled:false,
+      clientId:'',
+      tenantId:'',
+      redirectUri:'https://onikamathews-beep.github.io/outcomes-ops-dashboard/',
+      sharePointHost:'https://mckessoncorp-my.sharepoint.com',
+      sitePath:'/personal/onika_mathews_mckesson_com',
+      queueListName:'Outcomes Ops Dashboard',
+      weeklyListName:'Outcomes Weekly Performance'
+    });
+
+    function sharePointConfigurationReady(){
+      return Boolean(
+        SHAREPOINT_CONFIG.enabled &&
+        SHAREPOINT_CONFIG.clientId.trim() &&
+        SHAREPOINT_CONFIG.tenantId.trim() &&
+        SHAREPOINT_CONFIG.redirectUri.trim() &&
+        SHAREPOINT_CONFIG.sitePath.trim()
+      );
+    }
+
+    function updateConnectionUi(){
+      const ready=sharePointConfigurationReady();
+      const modeText=$('dataModeText');
+      const dot=$('connectionDot');
+      const badge=$('sharePointStatusBadge');
+      const detail=$('sharePointStatusDetail');
+      const signIn=$('microsoftSignInBtn');
+      const transfer=$('transferToSharePointBtn');
+      if(modeText)modeText.textContent=ready?'SharePoint ready':'Browser mode';
+      if(dot)dot.classList.toggle('waiting',!ready);
+      if(badge){badge.textContent=ready?'Ready to test':'Waiting for IAM';badge.classList.toggle('waiting',!ready);}
+      if(detail)detail.textContent=ready?'Registration details are present. Sign-in and list access still require a successful connection test.':'Waiting for the Microsoft Entra Client ID and Tenant ID.';
+      if(signIn)signIn.disabled=!ready;
+      if(transfer)transfer.disabled=true;
+    }
+
+    function checkSharePointReadiness(){
+      const missing=[];
+      if(!SHAREPOINT_CONFIG.clientId.trim())missing.push('Client ID');
+      if(!SHAREPOINT_CONFIG.tenantId.trim())missing.push('Tenant ID');
+      if(!SHAREPOINT_CONFIG.enabled)missing.push('connection enablement');
+      if(missing.length){
+        toast(`Browser mode is active. SharePoint is waiting for ${missing.join(', ')}.`,'warn');
+        return false;
+      }
+      toast('SharePoint configuration is present and ready for a sign-in test. Browser saving is still active.','success');
+      return true;
+    }
 
     const THEMES = {
       'blue-light': {
@@ -2597,6 +2697,9 @@
       $('resetCustomThemeBtn').onclick=resetCustomTheme;
       $('settingsBackdrop').onclick=e=>{if(e.target===$('settingsBackdrop'))closeSettings();};
       $('exportCsvBtn').onclick=exportCsv;$('downloadBackupBtn').onclick=downloadBackup;$('restoreBackupBtn').onclick=()=>$('backupInput').click();$('backupInput').onchange=e=>{if(e.target.files[0])restoreBackup(e.target.files[0]);e.target.value='';};
+      $('checkSharePointBtn').onclick=checkSharePointReadiness;
+      $('microsoftSignInBtn').onclick=()=>{if(checkSharePointReadiness())toast('Microsoft sign-in will be activated during the IAM connection update.','info');};
+      $('transferToSharePointBtn').onclick=()=>toast('The transfer tool will unlock only after Microsoft sign-in and list access are tested.','info');
       $('loadDemoBtn').onclick=()=>{if(!confirm('Replace the browser data with the sample data?'))return;records=structuredClone(sampleRecords);iphTrendData=structuredClone(sampleIphTrendData);performanceData=structuredClone(samplePerformanceData);iphReviewData={};iphWeekState={};hmgRawData={};normalizeSaturdayCheckpointData();ensureIphWeeklySlot();meta={};ensureTodayRows();saveAll('Sample data reloaded.');setDefaultDates();render();};
       $('clearAllBtn').onclick=()=>{if(!confirm('Clear every dashboard record saved in this browser?'))return;records=[];iphTrendData=[];performanceData=[];iphReviewData={};iphWeekState={};hmgRawData={};meta={};[STORE_KEY,IPH_TREND_KEY,IPH_PERFORMANCE_KEY,IPH_REVIEW_KEY,IPH_WEEK_STATE_KEY,HMG_RAW_KEY,META_KEY].forEach(key=>localStorage.removeItem(key));ensureTodayRows();setDefaultDates();render();toast('All data was cleared. Blank rows for today were retained in both workflows.','success');};
       document.addEventListener('keydown',e=>{if(e.key==='Escape'){closeDrawer();closeSettings();}});
@@ -2621,7 +2724,7 @@
       });
     }
 
-    applyAppearance(appearanceState,false);normalizeSaturdayCheckpointData();ensureTodayRows();ensureIphWeeklySlot();setDefaultDates();setIphDates();wireEvents();render();
+    applyAppearance(appearanceState,false);normalizeSaturdayCheckpointData();ensureTodayRows();ensureIphWeeklySlot();setDefaultDates();setIphDates();wireEvents();updateConnectionUi();render();
   })();
   </script>
 </body>
