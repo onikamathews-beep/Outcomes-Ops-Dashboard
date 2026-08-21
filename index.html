@@ -401,6 +401,15 @@
     .connection-list-item{display:grid;grid-template-columns:minmax(120px,.65fr) minmax(0,1.35fr);gap:10px;padding:8px 10px;border:1px solid var(--border);border-radius:8px;background:var(--surface);font-size:11px}
     .connection-list-item b{color:var(--ink)}.connection-list-item span{color:var(--muted);overflow-wrap:anywhere}
     .connection-placeholder{padding:9px 10px;border-left:4px solid var(--blue);border-radius:7px;background:var(--blue-soft);font-size:11px;line-height:1.45;color:var(--ink)}
+    .connection-form{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+    .connection-form .field{margin:0}
+    .connection-form .field.full{grid-column:1/-1}
+    .connection-form input{width:100%;height:39px;border:1px solid var(--border-strong);border-radius:7px;padding:7px 9px;background:var(--surface);color:var(--ink)}
+    .connection-form input[readonly]{background:var(--canvas);color:var(--muted)}
+    .connection-toggle{display:flex;align-items:flex-start;gap:9px;padding:10px 11px;border:1px solid var(--border);border-radius:8px;background:var(--canvas);font-size:11px;line-height:1.4;color:var(--ink)}
+    .connection-toggle input{margin-top:2px}
+    .connection-security-note{padding:9px 10px;border-left:4px solid var(--green);border-radius:7px;background:var(--green-bg);font-size:11px;line-height:1.45;color:var(--ink)}
+    @media(max-width:650px){.connection-form{grid-template-columns:1fr}.connection-form .field.full{grid-column:auto}}
     .btn:disabled{opacity:.55;cursor:not-allowed;filter:saturate(.4)}
     @media(max-width:650px){.settings-actions{grid-template-columns:1fr}.settings-actions .full{grid-column:auto}.settings-panel{width:100vw}.connection-chip{display:none}.connection-list-item{grid-template-columns:1fr}}
 
@@ -867,13 +876,44 @@
               </div>
               <span class="status-badge waiting" id="sharePointStatusBadge">Waiting for IAM</span>
             </div>
-            <div class="connection-list">
-              <div class="connection-list-item"><b>Daily queue list</b><span>Outcomes Ops Dashboard</span></div>
-              <div class="connection-list-item"><b>Weekly performance list</b><span>Outcomes Weekly Performance</span></div>
-              <div class="connection-list-item"><b>Redirect address</b><span>https://onikamathews-beep.github.io/outcomes-ops-dashboard/</span></div>
+            <div class="connection-form">
+              <label class="field">
+                <span>Application (Client) ID</span>
+                <input id="sharePointClientIdInput" type="text" autocomplete="off" placeholder="Enter the Entra Application (Client) ID">
+                <small>Provided by the Entra/IAM team or your App Registration.</small>
+              </label>
+              <label class="field">
+                <span>Tenant ID</span>
+                <input id="sharePointTenantIdInput" type="text" autocomplete="off" placeholder="Enter the Microsoft Entra Tenant ID">
+                <small>The directory/tenant identifier for McKesson.</small>
+              </label>
+              <label class="field">
+                <span>SharePoint host</span>
+                <input id="sharePointHostInput" type="text" autocomplete="off" placeholder="https://...sharepoint.com">
+              </label>
+              <label class="field">
+                <span>SharePoint site path</span>
+                <input id="sharePointSitePathInput" type="text" autocomplete="off" placeholder="/sites/... or /personal/...">
+              </label>
+              <label class="field">
+                <span>Daily queue list</span>
+                <input id="sharePointQueueListInput" type="text" autocomplete="off">
+              </label>
+              <label class="field">
+                <span>Weekly performance list</span>
+                <input id="sharePointWeeklyListInput" type="text" autocomplete="off">
+              </label>
+              <label class="field full">
+                <span>Redirect address</span>
+                <input id="sharePointRedirectInput" type="text" readonly>
+                <small>This exact address should be registered as the SPA redirect URI in Entra.</small>
+              </label>
             </div>
-            <div class="connection-placeholder">The Client ID and Tenant ID are not passwords. After IAM supplies them, they can be placed in the connection configuration and tested before shared saving is turned on.</div>
+            <label class="connection-toggle"><input id="sharePointEnabledInput" type="checkbox"> <span><b>Enable SharePoint connection for testing</b><br>Browser storage remains available while the Microsoft connection is being tested.</span></label>
+            <div class="connection-security-note"><b>No client secret is stored here.</b> This dashboard is a browser app and is staged for delegated Microsoft sign-in. Client ID and Tenant ID are identifiers, not passwords.</div>
+            <div class="connection-placeholder">Enter the registration details above, save them, then use <b>Check SharePoint readiness</b>. Microsoft sign-in and shared saving remain staged until authentication and list access are successfully tested.</div>
             <div class="settings-actions">
+              <button class="btn btn-primary full" id="saveSharePointConnectionBtn" type="button">Save connection settings</button>
               <button class="btn btn-secondary full" id="checkSharePointBtn" type="button">Check SharePoint readiness</button>
               <button class="btn btn-secondary" id="microsoftSignInBtn" type="button" disabled>Sign in to Microsoft</button>
               <button class="btn btn-primary" id="transferToSharePointBtn" type="button" disabled>Transfer browser data</button>
@@ -920,19 +960,64 @@
     const STORE_KEY = 'pinapple.dashboard.records';
     const META_KEY = 'pinapple.dashboard.meta';
     const APPEARANCE_KEY = 'pinapple.dashboard.appearance';
+    const SHAREPOINT_CONFIG_KEY = 'pinapple.dashboard.sharepointConfig';
 
-    // SharePoint staging configuration. Browser mode remains active until IAM supplies
-    // the Client ID and Tenant ID and the connection is deliberately enabled.
-    const SHAREPOINT_CONFIG = Object.freeze({
+    // SharePoint staging configuration. These values are identifiers and connection
+    // settings only; no client secret is stored in this browser application.
+    const SHAREPOINT_DEFAULTS = Object.freeze({
       enabled:false,
       clientId:'',
       tenantId:'',
-      redirectUri:'https://onikamathews-beep.github.io/outcomes-ops-dashboard/',
+      redirectUri:'https://onikamathews-beep.github.io/Outcomes-Ops-Dashboard/',
       sharePointHost:'https://mckessoncorp-my.sharepoint.com',
       sitePath:'/personal/onika_mathews_mckesson_com',
       queueListName:'Outcomes Ops Dashboard',
       weeklyListName:'Outcomes Weekly Performance'
     });
+
+    function loadSharePointConfig(){
+      try{
+        const saved=JSON.parse(localStorage.getItem(SHAREPOINT_CONFIG_KEY)||'null');
+        return {
+          ...SHAREPOINT_DEFAULTS,
+          ...(saved&&typeof saved==='object'?saved:{}),
+          redirectUri:SHAREPOINT_DEFAULTS.redirectUri
+        };
+      }catch(error){
+        return {...SHAREPOINT_DEFAULTS};
+      }
+    }
+
+    let SHAREPOINT_CONFIG=loadSharePointConfig();
+
+    function populateSharePointSettings(){
+      if(!$('sharePointClientIdInput'))return;
+      $('sharePointClientIdInput').value=SHAREPOINT_CONFIG.clientId||'';
+      $('sharePointTenantIdInput').value=SHAREPOINT_CONFIG.tenantId||'';
+      $('sharePointHostInput').value=SHAREPOINT_CONFIG.sharePointHost||'';
+      $('sharePointSitePathInput').value=SHAREPOINT_CONFIG.sitePath||'';
+      $('sharePointQueueListInput').value=SHAREPOINT_CONFIG.queueListName||'';
+      $('sharePointWeeklyListInput').value=SHAREPOINT_CONFIG.weeklyListName||'';
+      $('sharePointRedirectInput').value=SHAREPOINT_DEFAULTS.redirectUri;
+      $('sharePointEnabledInput').checked=Boolean(SHAREPOINT_CONFIG.enabled);
+    }
+
+    function saveSharePointConnection(){
+      SHAREPOINT_CONFIG={
+        enabled:Boolean($('sharePointEnabledInput').checked),
+        clientId:$('sharePointClientIdInput').value.trim(),
+        tenantId:$('sharePointTenantIdInput').value.trim(),
+        redirectUri:SHAREPOINT_DEFAULTS.redirectUri,
+        sharePointHost:$('sharePointHostInput').value.trim(),
+        sitePath:$('sharePointSitePathInput').value.trim(),
+        queueListName:$('sharePointQueueListInput').value.trim(),
+        weeklyListName:$('sharePointWeeklyListInput').value.trim()
+      };
+      localStorage.setItem(SHAREPOINT_CONFIG_KEY,JSON.stringify(SHAREPOINT_CONFIG));
+      populateSharePointSettings();
+      updateConnectionUi();
+      toast('SharePoint connection settings saved in this browser.','success');
+    }
 
     function sharePointConfigurationReady(){
       return Boolean(
@@ -940,12 +1025,16 @@
         SHAREPOINT_CONFIG.clientId.trim() &&
         SHAREPOINT_CONFIG.tenantId.trim() &&
         SHAREPOINT_CONFIG.redirectUri.trim() &&
-        SHAREPOINT_CONFIG.sitePath.trim()
+        SHAREPOINT_CONFIG.sharePointHost.trim() &&
+        SHAREPOINT_CONFIG.sitePath.trim() &&
+        SHAREPOINT_CONFIG.queueListName.trim() &&
+        SHAREPOINT_CONFIG.weeklyListName.trim()
       );
     }
 
     function updateConnectionUi(){
       const ready=sharePointConfigurationReady();
+      const hasRegistration=Boolean(SHAREPOINT_CONFIG.clientId.trim()&&SHAREPOINT_CONFIG.tenantId.trim());
       const modeText=$('dataModeText');
       const dot=$('connectionDot');
       const badge=$('sharePointStatusBadge');
@@ -954,8 +1043,17 @@
       const transfer=$('transferToSharePointBtn');
       if(modeText)modeText.textContent=ready?'SharePoint ready':'Browser mode';
       if(dot)dot.classList.toggle('waiting',!ready);
-      if(badge){badge.textContent=ready?'Ready to test':'Waiting for IAM';badge.classList.toggle('waiting',!ready);}
-      if(detail)detail.textContent=ready?'Registration details are present. Sign-in and list access still require a successful connection test.':'Waiting for the Microsoft Entra Client ID and Tenant ID.';
+      if(badge){
+        badge.textContent=ready?'Ready to test':hasRegistration?'Saved / disabled':'Waiting for IAM';
+        badge.classList.toggle('waiting',!ready);
+      }
+      if(detail){
+        detail.textContent=ready
+          ?'Registration details are saved. Sign-in and list access still require a successful connection test.'
+          :hasRegistration
+            ?'Client ID and Tenant ID are saved. Enable the connection when you are ready to test.'
+            :'Waiting for the Microsoft Entra Client ID and Tenant ID.';
+      }
       if(signIn)signIn.disabled=!ready;
       if(transfer)transfer.disabled=true;
     }
@@ -964,12 +1062,16 @@
       const missing=[];
       if(!SHAREPOINT_CONFIG.clientId.trim())missing.push('Client ID');
       if(!SHAREPOINT_CONFIG.tenantId.trim())missing.push('Tenant ID');
+      if(!SHAREPOINT_CONFIG.sharePointHost.trim())missing.push('SharePoint host');
+      if(!SHAREPOINT_CONFIG.sitePath.trim())missing.push('site path');
+      if(!SHAREPOINT_CONFIG.queueListName.trim())missing.push('daily queue list');
+      if(!SHAREPOINT_CONFIG.weeklyListName.trim())missing.push('weekly performance list');
       if(!SHAREPOINT_CONFIG.enabled)missing.push('connection enablement');
       if(missing.length){
-        toast(`Browser mode is active. SharePoint is waiting for ${missing.join(', ')}.`,'warn');
+        toast(`SharePoint is waiting for ${missing.join(', ')}.`,'warn');
         return false;
       }
-      toast('SharePoint configuration is present and ready for a sign-in test. Browser saving is still active.','success');
+      toast('Connection settings are complete and ready for a Microsoft sign-in test. Browser saving is still active.','success');
       return true;
     }
 
@@ -2550,6 +2652,8 @@
     function formRecord(){const r={workflow:currentWorkflow};document.querySelectorAll('#drawerBackdrop [data-field]').forEach(input=>{r[input.dataset.field]=input.type==='date'?input.value:n(input.value);});if(currentWorkflow==='Appeals PPQ'){r.supportTwo=0;r.supportTwoTime=0;}return r;}
     function updateCalculatedPreview(){const r=formRecord();const total=currentWorkflow==='PA PPQ'?nz(r.primaryHC)+nz(r.supportOne)*nz(r.supportOneTime)+nz(r.supportTwo)*nz(r.supportTwoTime)+nz(r.flexTeam):nz(r.primaryHC)+nz(r.supportOne)*nz(r.supportOneTime)+nz(r.flexTeam);const exitPer=Number.isFinite(r.exitCount)&&total>0?r.exitCount/total:null;$('calculatedPreview').innerHTML=`<div class="calc-box"><span>Total Headcount</span><b>${fmt(total,1)}</b></div><div class="calc-box"><span>Exit per HC</span><b>${fmt(exitPer,1)}</b></div><div class="calc-box"><span>Record key</span><b style="font-size:12px">${escapeHtml(currentWorkflow)} · ${escapeHtml(r.snapshotDate||'No date')}</b></div>`;}
     function openSettings(){
+      populateSharePointSettings();
+      updateConnectionUi();
       populateCustomInputs(activeCustomVars(appearanceState));
       renderThemeChooser();
       $('appearanceStatus').textContent=appearanceState.themeFamily==='custom'
@@ -2697,6 +2801,7 @@
       $('resetCustomThemeBtn').onclick=resetCustomTheme;
       $('settingsBackdrop').onclick=e=>{if(e.target===$('settingsBackdrop'))closeSettings();};
       $('exportCsvBtn').onclick=exportCsv;$('downloadBackupBtn').onclick=downloadBackup;$('restoreBackupBtn').onclick=()=>$('backupInput').click();$('backupInput').onchange=e=>{if(e.target.files[0])restoreBackup(e.target.files[0]);e.target.value='';};
+      $('saveSharePointConnectionBtn').onclick=saveSharePointConnection;
       $('checkSharePointBtn').onclick=checkSharePointReadiness;
       $('microsoftSignInBtn').onclick=()=>{if(checkSharePointReadiness())toast('Microsoft sign-in will be activated during the IAM connection update.','info');};
       $('transferToSharePointBtn').onclick=()=>toast('The transfer tool will unlock only after Microsoft sign-in and list access are tested.','info');
@@ -2724,7 +2829,7 @@
       });
     }
 
-    applyAppearance(appearanceState,false);normalizeSaturdayCheckpointData();ensureTodayRows();ensureIphWeeklySlot();setDefaultDates();setIphDates();wireEvents();updateConnectionUi();render();
+    applyAppearance(appearanceState,false);normalizeSaturdayCheckpointData();ensureTodayRows();ensureIphWeeklySlot();setDefaultDates();setIphDates();wireEvents();populateSharePointSettings();updateConnectionUi();render();
   })();
   </script>
 </body>
